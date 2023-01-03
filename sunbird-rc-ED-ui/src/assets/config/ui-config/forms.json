@@ -1281,33 +1281,6 @@
                     "required": ["AGWhatsappNumber"]
                   }
                 ]
-              },
-              "mobileAvailablity": {
-                "oneOf": [
-                  {
-                    "properties": {
-                      "mobileAvailablity": {
-                        "enum": ["हाँ"]
-                      },
-                      "AGWhatsappNumber": {
-                        "type": "string",
-                        "title": "कृपया किशोरी के पास उपलब्ध फ़ोन का नंबर दर्ज करें",
-                        "validation": {
-                          "pattern": "[6-9]{1}[0-9]{9}",
-                          "message": "MOBILE_NO_MUST_10_DIGIT"
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "properties": {
-                      "mobileAvailablity": {
-                        "enum": ["Yes"]
-                      }
-                    },
-                    "required": ["AGWhatsappNumber"]
-                  }
-                ]
               }
             },
             "fields": [
@@ -1468,6 +1441,7 @@
                 "required": true,
                 "type": "custom:document",
                 "expressionProperties": {
+                  "hideExpression": "!model.whereStudiedLast",
                   "templateOptions.disabled": "model.whereStudiedLast",
                   "templateOptions.required": "!model.whereStudiedLast"
                 }
