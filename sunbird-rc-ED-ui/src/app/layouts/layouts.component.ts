@@ -634,67 +634,67 @@ export class LayoutsComponent implements OnInit, OnChanges {
 
       this.Data = [];
       localStorage.setItem('osid', this.identifier);
-      if (this.model['whereStudiedLast']) {
-        var docs = []
-        if (this.model['whereStudiedLast'] == 'प्राइवेट स्कूल') {
-        docs = [
-          'टीसी (CBO या उच्चतर माध्यमिक सरकारी स्कूल के प्रधानाचार्य द्वारा भेरिफाइड और हस्ताक्षरित)',
-          'मार्कशीट (CBO या उच्चतर माध्यमिक सरकारी स्कूल के प्रधानाचार्य द्वारा भेरिफाइड और हस्ताक्षरित)',
-          '2 फोटो',
-          'जनाधार कार्ड',
-          'किशोरी का बैंक पासबुक (स्वयं या संयुक्त खाता)',
-          'मोबाइल नंबर',
-          'ईमेल आईडी',
-        ];
-      } else if(this.model['whereStudiedLast'] == 'सरकारी स्कूल') {
-        docs = [
-          'टीसी',
-          'मार्कशीट',
-          '2 फोटो',
-          'जनाधार कार्ड',
-          'किशोरी का बैंक पासबुक (स्वयं या संयुक्त खाता)',
-          'मोबाइल नंबर',
-          'ईमेल आईडी',
-        ];
-      }
-        var in_doc = [];
+      // if (this.model['whereStudiedLast']) {
+      //   var docs = []
+      //   if (this.model['whereStudiedLast'] == 'प्राइवेट स्कूल') {
+      //   docs = [
+      //     'टीसी (CBO या उच्चतर माध्यमिक सरकारी स्कूल के प्रधानाचार्य द्वारा भेरिफाइड और हस्ताक्षरित)',
+      //     'मार्कशीट (CBO या उच्चतर माध्यमिक सरकारी स्कूल के प्रधानाचार्य द्वारा भेरिफाइड और हस्ताक्षरित)',
+      //     '2 फोटो',
+      //     'जनाधार कार्ड',
+      //     'किशोरी का बैंक पासबुक (स्वयं या संयुक्त खाता)',
+      //     'मोबाइल नंबर',
+      //     'ईमेल आईडी',
+      //   ];
+      // } else if(this.model['whereStudiedLast'] == 'सरकारी स्कूल') {
+      //   docs = [
+      //     'टीसी',
+      //     'मार्कशीट',
+      //     '2 फोटो',
+      //     'जनाधार कार्ड',
+      //     'किशोरी का बैंक पासबुक (स्वयं या संयुक्त खाता)',
+      //     'मोबाइल नंबर',
+      //     'ईमेल आईडी',
+      //   ];
+      // }
+      //   var in_doc = [];
 
-        if (
-          this.model['AGDocumentsV3'] &&
-          Array.isArray(this.model['AGDocumentsV3'])
-        ) {
-          this.model['AGDocumentsV3'].forEach((element) => {
-            if (docs.includes(element['document'])) {
-              in_doc.push(element['document']);
-            }
-          });
-        }
-        console.log("in_doc",in_doc,docs);
-        var doc_statuses = [];
-        if (this.checkArray(docs, in_doc)) {
-          if (Array.isArray(this.model['AGDocumentsV3'])) {
-            this.model['AGDocumentsV3'].forEach((docmnt) => {
-              console.log(docmnt)
-              doc_statuses.push(docmnt['status']);
-            });
-          }
-        }
-        console.log("doc_statuses",doc_statuses)
+      //   if (
+      //     this.model['AGDocumentsV3'] &&
+      //     Array.isArray(this.model['AGDocumentsV3'])
+      //   ) {
+      //     this.model['AGDocumentsV3'].forEach((element) => {
+      //       if (docs.includes(element['document'])) {
+      //         in_doc.push(element['document']);
+      //       }
+      //     });
+      //   }
+      //   console.log("in_doc",in_doc,docs);
+      //   var doc_statuses = [];
+      //   if (this.checkArray(docs, in_doc)) {
+      //     if (Array.isArray(this.model['AGDocumentsV3'])) {
+      //       this.model['AGDocumentsV3'].forEach((docmnt) => {
+      //         console.log(docmnt)
+      //         doc_statuses.push(docmnt['status']);
+      //       });
+      //     }
+      //   }
+      //   console.log("doc_statuses",doc_statuses)
 
-        // उपलब्ध, सुधार की आवश्यकता नहीं
-        // var is_valid = doc_statuses.every( (val, i, arr) => val === arr[0] );
-        var is_valid = false;
-        if(doc_statuses.length > 0){
-          is_valid = doc_statuses.every(
-            (val, i, arr) => val === 'उपलब्ध, सुधार की आवश्यकता नहीं'
-          );
-        }
+      //   // उपलब्ध, सुधार की आवश्यकता नहीं
+      //   // var is_valid = doc_statuses.every( (val, i, arr) => val === arr[0] );
+      //   var is_valid = false;
+      //   if(doc_statuses.length > 0){
+      //     is_valid = doc_statuses.every(
+      //       (val, i, arr) => val === 'उपलब्ध, सुधार की आवश्यकता नहीं'
+      //     );
+      //   }
 
-        console.log("is_valid",is_valid,doc_statuses)
-        if (!is_valid) {
-          delete this.layoutSchema.blocks[1];
-        }
-      }
+      //   console.log("is_valid",is_valid,doc_statuses)
+      //   if (!is_valid) {
+      //     delete this.layoutSchema.blocks[1];
+      //   }
+      // }
 
       this.addData();
     });

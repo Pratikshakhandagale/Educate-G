@@ -1632,11 +1632,7 @@ export class FormsComponent implements OnInit {
               ]['items']['properties']['document']['enum'] = noSchoolEnums;
               return of(control.value);
             }
-            else{
-              this.responseData.definitions[fieldset.definition].properties[
-                'AGDocumentsV3'
-              ]['items']['properties']['document']['enum'] = privateSchoolEnums;
-            }
+
           }
           return new Promise((resolve, reject) => {
             setTimeout(() => {
@@ -1701,9 +1697,7 @@ export class FormsComponent implements OnInit {
                 enumList = enumList.filter(e => e !== doc_ele.document);
               });
             }
-            this.responseData.definitions[fieldset.definition].properties[
-              'AGDocumentsV3'
-            ]['items']['properties']['document']['enum'] = privateSchoolEnums;
+
           }
           return new Promise((resolve, reject) => {
             setTimeout(() => {
