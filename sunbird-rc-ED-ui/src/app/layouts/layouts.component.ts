@@ -147,6 +147,7 @@ export class LayoutsComponent implements OnInit, OnChanges {
         // })
       }
 
+
       if (params['claim']) {
         this.claim = params['claim'];
       }
