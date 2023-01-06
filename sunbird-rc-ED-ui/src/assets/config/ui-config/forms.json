@@ -791,7 +791,8 @@
                 "type": "date",
                 "format": "dd/mm/yyyy",
                 "validation": {
-                  "max": "2008-11-15",
+                  "maxYear": 30,
+                  "minYear": 14,
                   "message": "AGE_SHOULD_BE_GREATER_THAN_14"
                 }
               },
@@ -964,25 +965,6 @@
             "definition": "Camp",
             "fields": [
               {
-                "name": "prerakOsid",
-                "custom": true,
-                "data": {
-                  "type": "api",
-                  "url": "/PrerakV2",
-                  "key": "osid"
-                },
-                "element": {
-                  "widget": {
-                    "formlyConfig": {
-                      "type": "input",
-                      "templateOptions": {
-                        "type": "hidden"
-                      }
-                    }
-                  }
-                }
-              },
-              {
                 "name": "geoLocation",
                 "required": true
 
@@ -993,11 +975,6 @@
               },
               {
                 "name": "locationType",
-                "required": true
-
-              },
-              {
-                "name": "contactOfPersonWhoseHomeUsed",
                 "required": true
 
               },
@@ -1013,6 +990,9 @@
                       "validation": {
                         "pattern": "^[a-zA-Z]+ [a-zA-Z]+$",
                         "message": "Name is not valid."
+                      },
+                      "expressionProperties": {
+                        "hideExpression":"model.locationType!='एजी होम'||model.locationType!='एजी होम'"
                       }
                     },
                     {
@@ -1021,27 +1001,28 @@
                       "validation": {
                         "pattern": "[6-9]{1}[0-9]{9}",
                         "message": "MOBILE NUMBER MUST BE 10 DIGIT"
+                      },
+                      "expressionProperties": {
+                        "hideExpression":"model.locationType!='एजी होम'||model.locationType!='एजी होम'"
                       }
                     },
                     {
                       "name": "natureOfLocation",
-                      "required": true
+                      "required": true,
+                      "expressionProperties": {
+                        "hideExpression":"model.locationType!='अन्य'"
+                      }
                     }
                   ]
+                },
+                "expressionProperties": {
+                  "hideExpression":"model.locationType!='एजी होम'||model.locationType!='एजी होम'||model.locationType!='अन्य'"
                 }
-
               },
-
-
               {
                 "name": "amenities",
-                "required": true
-
-              },
-              {
-                "name": "keyCommunityStakeHolder",
-                "required": true
-
+                "required": true,
+                "type": "multiselect"
               },
               {
                 "name": "typeOfFirstStakeHolder",
@@ -1299,7 +1280,8 @@
                 "type": "date",
                 "format": "dd/mm/yyyy",
                 "validation": {
-                  "max": "2008-11-15",
+                  "maxYear": 30,
+                  "minYear": 14,
                   "message": "AGE_SHOULD_BE_GREATER_THAN_14"
                 }
               },
