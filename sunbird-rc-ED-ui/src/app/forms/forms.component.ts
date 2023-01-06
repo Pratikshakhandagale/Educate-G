@@ -997,7 +997,7 @@ export class FormsComponent implements OnInit {
               ]['pattern'] = field.validation.pattern;
             }
           }
-          if (field.validation.lessThan || field.validation.greaterThan) {
+          if (field.validation.lessThan || field.validation.greaterThan || field.validation.maxYear || field.validation.minYear) {
             this.responseData.definitions[fieldset.definition].properties[
               field.name
             ]['widget']['formlyConfig']['modelOptions'] = {
@@ -1037,16 +1037,28 @@ export class FormsComponent implements OnInit {
                     } else {
                       return of(false);
                     }
-                  } else if (field.validation.max) {
+                  } else if (field.validation.maxYear && field.validation.minYear) {
                     if (
-                      new Date(control.value).valueOf() <
-                      new Date(field.validation.max).valueOf()
+                      new Date(control.value).valueOf() >
+                      new Date(new Date().getFullYear() - field.validation.maxYear, new Date().getMonth(), new Date().getDate()).valueOf()
+                      &&  new Date(control.value).valueOf() <
+                      new Date(new Date().getFullYear() - field.validation.minYear, new Date().getMonth(), new Date().getDate()).valueOf()
                     ) {
                       return of(control.value);
                     } else {
                       return of(false);
                     }
                   }
+                  // else if (field.validation.minYear) {
+                  //   if (
+                  //     new Date(control.value).valueOf() <
+                  //     new Date(new Date().getFullYear() + field.validation.minYear, new Date().getMonth(), new Date().getDate()).valueOf()
+                  //   ) {
+                  //     return of(control.value);
+                  //   } else {
+                  //     return of(false);
+                  //   }
+                  // }
                 } else {
                   if (this.model[field.validation.lessThan]) {
                     if (this.model[field.validation.lessThan] > control.value) {
@@ -1632,11 +1644,7 @@ export class FormsComponent implements OnInit {
               ]['items']['properties']['document']['enum'] = noSchoolEnums;
               return of(control.value);
             }
-            else{
-              this.responseData.definitions[fieldset.definition].properties[
-                'AGDocumentsV3'
-              ]['items']['properties']['document']['enum'] = privateSchoolEnums;
-            }
+
           }
           return new Promise((resolve, reject) => {
             setTimeout(() => {
@@ -1701,9 +1709,7 @@ export class FormsComponent implements OnInit {
                 enumList = enumList.filter(e => e !== doc_ele.document);
               });
             }
-            this.responseData.definitions[fieldset.definition].properties[
-              'AGDocumentsV3'
-            ]['items']['properties']['document']['enum'] = privateSchoolEnums;
+
           }
           return new Promise((resolve, reject) => {
             setTimeout(() => {
