@@ -1325,6 +1325,7 @@ export class FormsComponent implements OnInit {
       }
 
       if(field?.name == "examChoice"){
+
         this.responseData.definitions[fieldset.definition].properties[
           field.name
         ]['widget']['formlyConfig']['asyncValidators'] = {};
@@ -1340,6 +1341,9 @@ export class FormsComponent implements OnInit {
             if(this.subjectsLoaded){
                 this.model['subjects'] = [];
                 // this.loadSchema();
+            }
+            if(control.value == "NA"){
+              this.model['subjects'] = null;
             }
             if (
               isRSOS_NSOS_First(control.value)
@@ -1945,241 +1949,247 @@ export class FormsComponent implements OnInit {
         delete this.model['AgAddress'];
       }
     }
-    if (this.model['isRSOS_NIOSFormSubmitted'] == 'नहीं') {
-      // alert('here');
-      this.model = {};
-      this.model['isRSOS_NIOSFormSubmitted'] = 'नहीं';
-      this.model['isRSOS_NIOSRegIdReceived'] = 'नहीं';
-      this.model['RSOS_NIOSRegId'] = '';
+    if (this.model['examChoice'] && this.model['examChoice'] == 'NA') {
       this.model['subjects'] = ["NA"];
-      this.model['examChoice'] = 'NA';
-      this.model['birthDateOnRSOS_NIOSForm'] = (new Date()).toISOString().split('T')[0];
-    }
+      this.errMsg = "निम्न में से चुने की किशोरी कौनसी परीक्षा में भाग लेगी should not be NA"
+    }else{
+      if (this.model['isRSOS_NIOSFormSubmitted'] == 'नहीं') {
+        this.model = {};
+        this.model['isRSOS_NIOSFormSubmitted'] = 'नहीं';
+        this.model['isRSOS_NIOSRegIdReceived'] = 'नहीं';
+        this.model['RSOS_NIOSRegId'] = '';
+        this.model['subjects'] = ["NA"];
+        this.model['examChoice'] = 'NA';
+        this.model['birthDateOnRSOS_NIOSForm'] = (new Date()).toISOString().split('T')[0];
+      }
 
-    if (this.model['RSOS_NIOSRegId'] == null) {
-      this.model['RSOS_NIOSRegId'] = "";
-    }
 
-    if (this.model['RSOS_NIOSFormPhoto']) {
-      delete this.model['RSOS_NIOSFormPhoto'];
-    }
+      if (this.model['RSOS_NIOSRegId'] == null) {
+        this.model['RSOS_NIOSRegId'] = "";
+      }
 
-    if (this.model['RSOS_NIOSRegId']) {
-      this.model['RSOS_NIOSRegId'] = this.model['RSOS_NIOSRegId'].toString();
-    }
-    if (this.model['AGDocumentsV3'] && this.model['AGDocumentsV3'][0] == null) {
-      this.model['AGDocumentsV3'] = [];
-    }
+      if (this.model['RSOS_NIOSFormPhoto']) {
+        delete this.model['RSOS_NIOSFormPhoto'];
+      }
 
-    // if (this.model['examChoice']) {
-    //   if (
-    //     isRSOS_NSOS_First(this.model['examChoice'])
-    //   ) {
-    //     if(this.model['subjects']){
+      if (this.model['RSOS_NIOSRegId']) {
+        this.model['RSOS_NIOSRegId'] = this.model['RSOS_NIOSRegId'].toString();
+      }
+      if (this.model['AGDocumentsV3'] && this.model['AGDocumentsV3'][0] == null) {
+        this.model['AGDocumentsV3'] = [];
+      }
 
-    //       if (this.model['subjects'].length <= 7 && this.model['subjects'].length >= 5) {
-    //         this.errMsg =
-    //         'You need to select Minimum 5 subjects and Maximum 7 subjects';
-    //       }
-    //     }
+      // if (this.model['examChoice']) {
+      //   if (
+      //     isRSOS_NSOS_First(this.model['examChoice'])
+      //   ) {
+      //     if(this.model['subjects']){
 
-    //   } else if(isRSOS_NSOS_Last(this.model['examChoice'])) {
-    //     if(this.model['subjects']){
+      //       if (this.model['subjects'].length <= 7 && this.model['subjects'].length >= 5) {
+      //         this.errMsg =
+      //         'You need to select Minimum 5 subjects and Maximum 7 subjects';
+      //       }
+      //     }
 
-    //       if (this.model['subjects'].length <= 7 && this.model['subjects'].length >= 1) {
-    //         this.errMsg =
-    //         'You need to select Minimum 1 subjects and Maximum 7 subjects';
-    //       }
-    //     }
-    //   }
-    // }
-    // else{
-      if (this.fileFields.length > 0) {
-        this.fileFields.forEach((fileField) => {
-          if (this.model[fileField]) {
-            var formData = new FormData();
-            for (let i = 0; i < this.model[fileField].length; i++) {
-              const file = this.model[fileField][i];
-              formData.append('files', file);
-            }
+      //   } else if(isRSOS_NSOS_Last(this.model['examChoice'])) {
+      //     if(this.model['subjects']){
 
-            if (this.type && this.type.includes('property')) {
-              var property = this.type.split(':')[1];
-            }
+      //       if (this.model['subjects'].length <= 7 && this.model['subjects'].length >= 1) {
+      //         this.errMsg =
+      //         'You need to select Minimum 1 subjects and Maximum 7 subjects';
+      //       }
+      //     }
+      //   }
+      // }
+      // else{
+        if (this.fileFields.length > 0) {
+          this.fileFields.forEach((fileField) => {
+            if (this.model[fileField]) {
+              var formData = new FormData();
+              for (let i = 0; i < this.model[fileField].length; i++) {
+                const file = this.model[fileField][i];
+                formData.append('files', file);
+              }
 
-            let id = this.entityId ? this.entityId : this.identifier;
-            var url = [this.apiUrl, id, property, 'documents'];
-            this.generalService.postData(url.join('/'), formData).subscribe(
-              (res) => {
-                var documents_list: any[] = [];
-                var documents_obj = {
-                  fileName: '',
-                  format: 'file',
-                };
-                res.documentLocations.forEach((element) => {
-                  documents_obj.fileName = element;
-                  documents_list.push(documents_obj);
-                });
+              if (this.type && this.type.includes('property')) {
+                var property = this.type.split(':')[1];
+              }
 
-                this.model[fileField] = documents_list;
-                if (this.type && this.type === 'entity') {
-                  if (this.identifier != null) {
-                    this.updateData();
-                  } else {
+              let id = this.entityId ? this.entityId : this.identifier;
+              var url = [this.apiUrl, id, property, 'documents'];
+              this.generalService.postData(url.join('/'), formData).subscribe(
+                (res) => {
+                  var documents_list: any[] = [];
+                  var documents_obj = {
+                    fileName: '',
+                    format: 'file',
+                  };
+                  res.documentLocations.forEach((element) => {
+                    documents_obj.fileName = element;
+                    documents_list.push(documents_obj);
+                  });
+
+                  this.model[fileField] = documents_list;
+                  if (this.type && this.type === 'entity') {
+                    if (this.identifier != null) {
+                      this.updateData();
+                    } else {
+                      this.postData();
+                    }
+                  } else if (this.type && this.type.includes('property')) {
+                    var property = this.type.split(':')[1];
+                    var url;
+                    if (this.identifier != null && this.entityId != undefined) {
+                      url = [this.apiUrl, this.entityId, property, this.identifier];
+                    } else {
+                      url = [this.apiUrl, this.identifier, property];
+                    }
+                    if (property == 'AgRegistrationForm') {
+                      url = [this.apiUrl, localStorage.getItem('id'), property];
+                    }
+                    this.apiUrl = url.join('/');
+                    if (this.model[property]) {
+                      this.model = this.model[property];
+                    }
+
                     this.postData();
-                  }
-                } else if (this.type && this.type.includes('property')) {
-                  var property = this.type.split(':')[1];
-                  var url;
-                  if (this.identifier != null && this.entityId != undefined) {
-                    url = [this.apiUrl, this.entityId, property, this.identifier];
-                  } else {
-                    url = [this.apiUrl, this.identifier, property];
-                  }
-                  if (property == 'AgRegistrationForm') {
-                    url = [this.apiUrl, localStorage.getItem('id'), property];
-                  }
-                  this.apiUrl = url.join('/');
-                  if (this.model[property]) {
-                    this.model = this.model[property];
-                  }
 
-                  this.postData();
-
-                  if (
-                    this.model.hasOwnProperty('attest') &&
-                    this.model['attest']
-                  ) {
-                    this.raiseClaim(property);
+                    if (
+                      this.model.hasOwnProperty('attest') &&
+                      this.model['attest']
+                    ) {
+                      this.raiseClaim(property);
+                    }
                   }
+                },
+                (err) => {
+                  this.toastMsg.error(
+                    'error',
+                    this.translate.instant('SOMETHING_WENT_WRONG')
+                  );
                 }
-              },
-              (err) => {
-                this.toastMsg.error(
-                  'error',
-                  this.translate.instant('SOMETHING_WENT_WRONG')
-                );
-              }
-            );
-          } else {
-            if (this.type && this.type === 'entity') {
-              if (this.identifier != null) {
-                this.updateData();
-              } else {
-                this.postData();
-              }
-            } else if (this.type && this.type.includes('property')) {
-              var property = this.type.split(':')[1];
-              // let url;
-              if (this.identifier != null && this.entityId != undefined) {
-                url = [this.apiUrl, this.entityId, property, this.identifier];
-              } else {
-                url = [this.apiUrl, this.identifier, property];
-              }
-              if (property == 'AgRegistrationForm') {
-                url = [this.apiUrl, localStorage.getItem('id'), property];
-                this.entityId = undefined;
-              }
-              this.apiUrl = url.join('/');
-              if (this.model[property]) {
-                this.model = this.model[property];
-              }
-              if (this.identifier != null && this.entityId != undefined) {
-                this.updateClaims();
-              } else {
-                this.postData();
-              }
+              );
+            } else {
+              if (this.type && this.type === 'entity') {
+                if (this.identifier != null) {
+                  this.updateData();
+                } else {
+                  this.postData();
+                }
+              } else if (this.type && this.type.includes('property')) {
+                var property = this.type.split(':')[1];
+                // let url;
+                if (this.identifier != null && this.entityId != undefined) {
+                  url = [this.apiUrl, this.entityId, property, this.identifier];
+                } else {
+                  url = [this.apiUrl, this.identifier, property];
+                }
+                if (property == 'AgRegistrationForm') {
+                  url = [this.apiUrl, localStorage.getItem('id'), property];
+                  this.entityId = undefined;
+                }
+                this.apiUrl = url.join('/');
+                if (this.model[property]) {
+                  this.model = this.model[property];
+                }
+                if (this.identifier != null && this.entityId != undefined) {
+                  this.updateClaims();
+                } else {
+                  this.postData();
+                }
 
-              if (this.model.hasOwnProperty('attest') && this.model['attest']) {
-                this.raiseClaim(property);
+                if (this.model.hasOwnProperty('attest') && this.model['attest']) {
+                  this.raiseClaim(property);
+                }
               }
             }
-          }
-        });
-      } else {
-        if (this.type && this.type === 'entity') {
-          if (this.identifier != null) {
-            this.updateData();
-          } else {
-            this.postData();
-          }
-        } else if (this.type && this.type.includes('property')) {
-          var property = this.type.split(':')[1];
-
-          if (this.identifier != null && this.entityId != undefined) {
-            if (
-              this.adminForm == 'prerak-admin-setup' ||
-              this.adminForm == 'interview'
-            ) {
-              var url = [this.apiUrl, this.identifier, property];
-            } else if (this.isThisAdminRole) {
-              var url = [
-                this.apiUrl,
-                localStorage.getItem('id'),
-                property,
-                this.identifier,
-              ];
+          });
+        } else {
+          if (this.type && this.type === 'entity') {
+            if (this.identifier != null) {
+              this.updateData();
             } else {
+              this.postData();
+            }
+          } else if (this.type && this.type.includes('property')) {
+            var property = this.type.split(':')[1];
 
-              if (this.form == 'ag-registration' ||  this.form == 'ag-setup' || this.form == 'ag-registration-setup') {
+            if (this.identifier != null && this.entityId != undefined) {
+              if (
+                this.adminForm == 'prerak-admin-setup' ||
+                this.adminForm == 'interview'
+              ) {
+                var url = [this.apiUrl, this.identifier, property];
+              } else if (this.isThisAdminRole) {
                 var url = [
                   this.apiUrl,
-                  localStorage.getItem('ag-id'),
+                  localStorage.getItem('id'),
                   property,
                   this.identifier,
                 ];
-                if(this.add){
+              } else {
+
+                if (this.form == 'ag-registration' ||  this.form == 'ag-setup' || this.form == 'ag-registration-setup') {
+                  var url = [
+                    this.apiUrl,
+                    localStorage.getItem('ag-id'),
+                    property,
+                    this.identifier,
+                  ];
+                  if(this.add){
+                    url = [
+                      this.apiUrl,
+                      localStorage.getItem('ag-id'),
+                      property
+                    ]
+                  }
+                } else {
+                  var url = [this.apiUrl, this.entityId, property, this.identifier];
+                }
+              }
+            } else {
+              if (this.form == 'ag-registration' || this.form == 'ag-registration-setup') {
                   url = [
                     this.apiUrl,
                     localStorage.getItem('ag-id'),
                     property
                   ]
+
+              }else{
+                var url = [this.apiUrl, this.identifier, property];
+              }
+
+            }
+
+            this.apiUrl = url.join('/');
+            if (this.model[property]) {
+              this.model = this.model[property];
+            }
+            if (this.identifier != null && this.entityId != undefined) {
+              if (
+                this.adminForm == 'prerak-admin-setup' ||
+                this.adminForm == 'interview' ||
+                this.form == 'ag-setup' ||
+                this.form == 'ag-registration' || this.form == 'ag-registration-setup'
+              ) {
+                if(this.add){
+                  this.postData();
+                }else {
+                  this.updateClaims();
                 }
-              } else {
-                var url = [this.apiUrl, this.entityId, property, this.identifier];
               }
-            }
-          } else {
-            if (this.form == 'ag-registration' || this.form == 'ag-registration-setup') {
-                url = [
-                  this.apiUrl,
-                  localStorage.getItem('ag-id'),
-                  property
-                ]
-
-            }else{
-              var url = [this.apiUrl, this.identifier, property];
+            } else {
+              this.postData();
             }
 
-          }
-
-          this.apiUrl = url.join('/');
-          if (this.model[property]) {
-            this.model = this.model[property];
-          }
-          if (this.identifier != null && this.entityId != undefined) {
-            if (
-              this.adminForm == 'prerak-admin-setup' ||
-              this.adminForm == 'interview' ||
-              this.form == 'ag-setup' ||
-              this.form == 'ag-registration' || this.form == 'ag-registration-setup'
-            ) {
-              if(this.add){
-                this.postData();
-              }else {
-                this.updateClaims();
-              }
+            if (this.model.hasOwnProperty('attest') && this.model['attest']) {
+              this.raiseClaim(property);
             }
-          } else {
-            this.postData();
-          }
-
-          if (this.model.hasOwnProperty('attest') && this.model['attest']) {
-            this.raiseClaim(property);
           }
         }
-      }
-    // }
+      // }
+    }
+
 
 
   }

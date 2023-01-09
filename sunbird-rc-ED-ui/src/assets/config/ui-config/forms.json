@@ -1475,7 +1475,7 @@
                   "min": 1
                 },
                 "expressionProperties": {
-                  "hideExpression":"model.isRSOS_NIOSFormSubmitted=='नहीं'",
+                  "hideExpression":"model.isRSOS_NIOSFormSubmitted=='नहीं'||model.examChoice=='NA'",
                   "templateOptions.required": "model.isRSOS_NIOSFormSubmitted=='हाँ'"
                 }
               },
@@ -1545,7 +1545,7 @@
                   "min": 1
                 },
                 "expressionProperties": {
-                  "hideExpression":"model.isRSOS_NIOSFormSubmitted=='नहीं'",
+                  "hideExpression":"model.isRSOS_NIOSFormSubmitted=='नहीं'||model.examChoice=='NA'",
                   "templateOptions.required": "model.isRSOS_NIOSFormSubmitted=='हाँ'"
                 }
               },
