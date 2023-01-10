@@ -945,7 +945,7 @@
                 "required": true,
                 "validation": {
                   "pattern": "^[0-9]{12}$",
-                  "message": "AADHAR_NOT_VALID."
+                  "message": "AADHAR Number is not valid."
                 }
               }
             ]
@@ -1434,7 +1434,7 @@
                 "required": true,
                 "validation": {
                   "pattern": "^[0-9]{12}$",
-                  "message": "AADHAR_NOT_VALID."
+                  "message": "AADHAR Number is not valid."
                 }
               }
             ]
@@ -1483,6 +1483,11 @@
                 "name": "birthDateOnRSOS_NIOSForm",
                 "type": "date",
                 "format": "dd/mm/yyyy",
+                "validation": {
+                  "maxYear": 30,
+                  "minYear": 14,
+                  "message": "AGE_SHOULD_BE_GREATER_THAN_14"
+                },
                 "expressionProperties": {
                   "hideExpression":"model.isRSOS_NIOSFormSubmitted=='नहीं'",
                   "templateOptions.required": "model.isRSOS_NIOSFormSubmitted=='हाँ'"
@@ -1553,6 +1558,11 @@
                 "name": "birthDateOnRSOS_NIOSForm",
                 "type": "date",
                 "format": "dd/mm/yyyy",
+                "validation": {
+                  "maxYear": 30,
+                  "minYear": 14,
+                  "message": "AGE_SHOULD_BE_GREATER_THAN_14"
+                },
                 "expressionProperties": {
                   "hideExpression":"model.isRSOS_NIOSFormSubmitted=='नहीं'",
                   "templateOptions.required": "model.isRSOS_NIOSFormSubmitted=='हाँ'"
