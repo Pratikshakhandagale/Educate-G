@@ -945,7 +945,7 @@
                 "required": true,
                 "validation": {
                   "pattern": "^[0-9]{12}$",
-                  "message": "AADHAR Number is not valid."
+                  "message": "Aadhar number should be 12 digit"
                 }
               }
             ]
@@ -1434,7 +1434,7 @@
                 "required": true,
                 "validation": {
                   "pattern": "^[0-9]{12}$",
-                  "message": "AADHAR Number is not valid."
+                  "message": "Aadhar number should be 12 digit"
                 }
               }
             ]
