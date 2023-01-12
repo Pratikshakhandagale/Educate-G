@@ -17,6 +17,7 @@ import { startWith, switchMap } from 'rxjs/operators';
 import { stringify } from '@angular/compiler/src/util';
 import { KeycloakService } from 'keycloak-angular';
 import * as Sentry from '@sentry/angular';
+import { AppConfig } from '../app.config';
 
 declare const $: any;
 
@@ -112,7 +113,7 @@ export class FormsComponent implements OnInit {
   adminRole: boolean;
   errMsg: string;
   subjectsLoaded: boolean = false;
-
+  baseUrl = this.config.getEnv('baseUrl');
   constructor(
     private route: ActivatedRoute,
     public translate: TranslateService,
@@ -123,10 +124,12 @@ export class FormsComponent implements OnInit {
     private formlyJsonschema: FormlyJsonschema,
     public generalService: GeneralService,
     private location: Location,
-    public keycloak: KeycloakService
+    public keycloak: KeycloakService,
+    private config: AppConfig
   ) {}
 
   ngOnInit(): void {
+
     this.keycloak.loadUserProfile().then((res) => {
       this.adminRole = this.keycloak.isUserInRole('admin', res['username']);
     });
@@ -1968,9 +1971,9 @@ export class FormsComponent implements OnInit {
         this.model['RSOS_NIOSRegId'] = "";
       }
 
-      if (this.model['RSOS_NIOSFormPhoto']) {
-        delete this.model['RSOS_NIOSFormPhoto'];
-      }
+      // if (this.model['RSOS_NIOSFormPhoto']) {
+      //   delete this.model['RSOS_NIOSFormPhoto'];
+      // }
 
       if (this.model['RSOS_NIOSRegId']) {
         this.model['RSOS_NIOSRegId'] = this.model['RSOS_NIOSRegId'].toString();
@@ -2002,6 +2005,7 @@ export class FormsComponent implements OnInit {
       //   }
       // }
       // else{
+
         if (this.fileFields.length > 0) {
           this.fileFields.forEach((fileField) => {
             if (this.model[fileField]) {
@@ -2029,7 +2033,8 @@ export class FormsComponent implements OnInit {
                     documents_list.push(documents_obj);
                   });
 
-                  this.model[fileField] = documents_list;
+                  // this.model[fileField] = documents_list;
+                  this.model[fileField] = this.baseUrl + '/'+res.documentLocations[0]
                   if (this.type && this.type === 'entity') {
                     if (this.identifier != null) {
                       this.updateData();
@@ -2047,6 +2052,13 @@ export class FormsComponent implements OnInit {
                     if (property == 'AgRegistrationForm') {
                       url = [this.apiUrl, localStorage.getItem('id'), property];
                     }
+                    if (this.form == 'ag-registration' || this.form == 'ag-registration-setup') {
+                      url = [
+                        this.apiUrl,
+                        localStorage.getItem('ag-id'),
+                        property
+                      ]
+                  }
                     this.apiUrl = url.join('/');
                     if (this.model[property]) {
                       this.model = this.model[property];
