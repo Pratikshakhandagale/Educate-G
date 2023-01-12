@@ -143,7 +143,6 @@
             "add": false,
             "edit": true,
             "editform": "ag-setup",
-            "delete": true,
             "fields": {
               "includes": ["*"],
               "excludes": ["AgRegistrationForm","AGDocumentsV3"]
