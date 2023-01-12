@@ -143,7 +143,6 @@
             "add": false,
             "edit": true,
             "editform": "ag-setup",
-            "delete": true,
             "fields": {
               "includes": ["*"],
               "excludes": ["AgRegistrationForm","AGDocumentsV3"]
@@ -161,6 +160,7 @@
             "claimEdit": true,
             "canRaiseClaim": false,
             "multiple": true,
+            "headValue": "examChoice",
             "fields": {
               "includes": ["AgRegistrationForm"]
             }

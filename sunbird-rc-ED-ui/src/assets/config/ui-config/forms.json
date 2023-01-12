@@ -945,7 +945,7 @@
                 "required": true,
                 "validation": {
                   "pattern": "^[0-9]{12}$",
-                  "message": "AADHAR_NOT_VALID."
+                  "message": "Aadhar number should be 12 digit"
                 }
               }
             ]
@@ -1434,7 +1434,7 @@
                 "required": true,
                 "validation": {
                   "pattern": "^[0-9]{12}$",
-                  "message": "AADHAR_NOT_VALID."
+                  "message": "Aadhar number should be 12 digit"
                 }
               }
             ]
@@ -1458,7 +1458,10 @@
                 "name": "isRSOS_NIOSFormSubmitted",
                 "required": true
               },
-
+              {
+                "name": "RSOS_NIOSFormPhoto",
+                "format": "file"
+              },
               {
                 "name": "examChoice",
                 "expressionProperties": {
@@ -1475,7 +1478,7 @@
                   "min": 1
                 },
                 "expressionProperties": {
-                  "hideExpression":"model.isRSOS_NIOSFormSubmitted=='नहीं'",
+                  "hideExpression":"model.isRSOS_NIOSFormSubmitted=='नहीं'||model.examChoice=='NA'",
                   "templateOptions.required": "model.isRSOS_NIOSFormSubmitted=='हाँ'"
                 }
               },
@@ -1483,6 +1486,11 @@
                 "name": "birthDateOnRSOS_NIOSForm",
                 "type": "date",
                 "format": "dd/mm/yyyy",
+                "validation": {
+                  "maxYear": 30,
+                  "minYear": 14,
+                  "message": "AGE_SHOULD_BE_GREATER_THAN_14"
+                },
                 "expressionProperties": {
                   "hideExpression":"model.isRSOS_NIOSFormSubmitted=='नहीं'",
                   "templateOptions.required": "model.isRSOS_NIOSFormSubmitted=='हाँ'"
@@ -1528,7 +1536,10 @@
                 "name": "isRSOS_NIOSFormSubmitted",
                 "required": true
               },
-
+              {
+                "name": "RSOS_NIOSFormPhoto",
+                "format": "file"
+              },
               {
                 "name": "examChoice",
                 "expressionProperties": {
@@ -1545,7 +1556,7 @@
                   "min": 1
                 },
                 "expressionProperties": {
-                  "hideExpression":"model.isRSOS_NIOSFormSubmitted=='नहीं'",
+                  "hideExpression":"model.isRSOS_NIOSFormSubmitted=='नहीं'||model.examChoice=='NA'",
                   "templateOptions.required": "model.isRSOS_NIOSFormSubmitted=='हाँ'"
                 }
               },
@@ -1553,6 +1564,11 @@
                 "name": "birthDateOnRSOS_NIOSForm",
                 "type": "date",
                 "format": "dd/mm/yyyy",
+                "validation": {
+                  "maxYear": 30,
+                  "minYear": 14,
+                  "message": "AGE_SHOULD_BE_GREATER_THAN_14"
+                },
                 "expressionProperties": {
                   "hideExpression":"model.isRSOS_NIOSFormSubmitted=='नहीं'",
                   "templateOptions.required": "model.isRSOS_NIOSFormSubmitted=='हाँ'"
