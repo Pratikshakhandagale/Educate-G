@@ -133,7 +133,6 @@ export class FormsComponent implements OnInit {
 
     this.getLocation();
     this.route.params.subscribe((params) => {
-      console.log(params);
       this.add = this.router.url.includes('claim:add');
 
       if (params['form'] != undefined) {
@@ -380,7 +379,6 @@ export class FormsComponent implements OnInit {
     );
     setTimeout(() => {
       this.subjectsLoaded = true;
-      console.log('subjectsLoaded', this.subjectsLoaded);
     }, 3000);
   }
 
@@ -2198,15 +2196,6 @@ export class FormsComponent implements OnInit {
             this.model = this.model[property];
           }
 
-          if (this.form == 'AG-add') {
-            this.model['prerakId'] = this.PrerakId;
-          } else if (
-            this.form == 'ag-setup' &&
-            this.model['prerakId'] != undefined
-          ) {
-            this.model['prerakId'] = this.PrerakId;
-          }
-
           if (this.identifier != null && this.entityId != undefined) {
             if (
               this.adminForm == 'prerak-admin-setup' ||
@@ -2402,27 +2391,20 @@ export class FormsComponent implements OnInit {
         this.adminForm == 'interview'
       ) {
         get_url = '/PrerakV2/' + this.identifier;
-        console.log('get_url1', get_url);
       } else if (this.form == 'ag-setup') {
         get_url = '/AGV8/' + this.identifier;
-        console.log('get_url2', get_url);
       } else {
         get_url = this.propertyName + '/' + this.identifier;
-        console.log('get_url3', get_url);
       }
     } else {
       if (this.form == 'ag-setup') {
         get_url = '/AGV8/' + localStorage.getItem('ag-id');
-        console.log('get_url2', get_url);
       } else {
         get_url = this.apiUrl;
-        console.log('get_url4', get_url, this.form);
       }
     }
 
     this.generalService.getData(get_url).subscribe(async (res) => {
-      console.log(this.propertyName + '/' + this.identifier);
-      console.log('get res', res);
       res = res[0] ? res[0] : res;
       if (this.propertyName) {
         this.entityId = res.osid;
@@ -2437,7 +2419,6 @@ export class FormsComponent implements OnInit {
 
       this.identifier = res.osid;
       if (this.model['whereStudiedLast']) {
-        console.log('whereStudiedLast', this.model['whereStudiedLast']);
         if (this.model['whereStudiedLast'] == 'प्राइवेट स्कूल') {
           this.responseData.definitions['AGV8'].properties['AGDocumentsV3'][
             'items'
@@ -2485,6 +2466,10 @@ export class FormsComponent implements OnInit {
   }
 
   async postData() {
+    console.log('1111111', this.form, this.model['prerakId']);
+    if (this.form == 'AG-add') {
+      this.model['prerakId'] = this.PrerakId;
+    }
     if (Array.isArray(this.model)) {
       this.model = this.model[0];
     }
@@ -2699,6 +2684,10 @@ export class FormsComponent implements OnInit {
   }
 
   updateData() {
+    console.log('22222', this.form, this.model['prerakId'], this.PrerakId);
+    if (this.form == 'ag-setup' && this.model['prerakId'] == undefined) {
+      this.model['prerakId'] = this.PrerakId;
+    }
     if (this.model.hasOwnProperty('address')) {
       if (
         this.model['address'].hasOwnProperty('district') &&
