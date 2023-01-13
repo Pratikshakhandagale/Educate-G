@@ -380,7 +380,7 @@ export class FormsComponent implements OnInit {
     this.form2 = new FormGroup({});
     this.options = {};
     this.fields = [this.formlyJsonschema.toFieldConfig(this.schema)];
-
+    console.log("this.schema",this.schema)
     if (this.privacyCheck) {
       this.visilibity(this.fields);
     }
@@ -2034,7 +2034,10 @@ export class FormsComponent implements OnInit {
                   });
 
                   // this.model[fileField] = documents_list;
-                  this.model[fileField] = this.baseUrl + '/'+res.documentLocations[0]
+                  if(res.documentLocations[0]){
+                    this.model[fileField] = this.baseUrl + '/'+res.documentLocations[0]
+                  }
+
                   if (this.type && this.type === 'entity') {
                     if (this.identifier != null) {
                       this.updateData();

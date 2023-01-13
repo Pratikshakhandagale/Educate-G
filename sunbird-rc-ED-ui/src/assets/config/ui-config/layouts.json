@@ -27,12 +27,12 @@
       }
     },
     {
-      "Camp": {
-        "api": "/Camp",
+      "Campdetail": {
+        "api": "/Campdetail",
         "title": "Camp",
         "blocks": [
           {
-            "definition": "Camp",
+            "definition": "Campdetail",
             "title": "Camp",
             "add": true,
             "addform": "Camp-add",
@@ -163,7 +163,8 @@
             "headValue": "examChoice",
             "fields": {
               "includes": ["AgRegistrationForm"]
-            }
+            },
+            "showOnlyFirst": true
           }
         ]
       }

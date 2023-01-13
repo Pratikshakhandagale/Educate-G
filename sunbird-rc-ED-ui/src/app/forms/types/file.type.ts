@@ -14,7 +14,7 @@ import { DomSanitizer } from '@angular/platform-browser';
       <div (click)="openFileInput()">
         <div></div>
 
-           <label class="p12 text-primary-color"> {{'UPLOAD_FILE' | translate}} </label>
+           <label class="p12 text-primary-color"> {{lable}} </label>
 
         <input
           #fileinput
@@ -24,7 +24,7 @@ import { DomSanitizer } from '@angular/platform-browser';
           [formControl]="formControl"
           [formlyAttributes]="field"
           (change)="onChange($event)"
-          accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
+          accept="image/*"
           style="visibility: hidden;"
         />
       </div>
@@ -32,7 +32,10 @@ import { DomSanitizer } from '@angular/platform-browser';
     </div>
     </div>
     <div *ngFor="let file of selectedFiles; let i = index">
+      <img src={{url}} style="width: 100px;">
+<br>
         <span class="badge badge-pill badge-primary"><i class="fa fa-paperclip" aria-hidden="true"></i> {{ file.name }}</span>
+        <span (click)="delete()" class="badge badge-pill" style="background-color: red; color:white !important;margin-left: 2px;"><i class="fa fa-trash" aria-hidden="true"></i></span>
       </div>
     `,
 })
@@ -46,6 +49,8 @@ export class FormlyFieldFile extends FieldType {
   icon = 'fa fa-plus'
   @ViewChild("fileinput") el: ElementRef;
   selectedFiles: File[];
+  imagePath: any;
+  url: string | ArrayBuffer;
   constructor(public sanitizer: DomSanitizer) {
     super();
   }
@@ -65,8 +70,35 @@ export class FormlyFieldFile extends FieldType {
     console.log("Form Control Value", this.formControl.value);
   }
   onChange(event) {
-    this.selectedFiles = Array.from(event.target.files);
+
     console.log(this.selectedFiles);
+    let e = event;
+    let file = e.target.files[0];
+    let fileType = file.type; // image/jpeg
+    let fileSize = file.size; // 3MB
+
+    if (fileSize > 5 * 1000000) {
+      // fileSize > 5MB then show popup message
+      alert(
+        `File size is too large, please upload image of size less than 5MB.\nSelected File Size: ${
+          fileSize / 1000000
+        }MB only`
+      );
+      return false;
+    }else{
+      this.selectedFiles = Array.from(event.target.files);
+      const reader = new FileReader();
+      this.imagePath = event.target.files;
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = (_event) => {
+          this.url = reader.result;
+      }
+      this.lable = '✏️ Change File';
+    }
+  }
+  delete(){
+    this.selectedFiles = [];
+    this.lable = '+ Upload File';
   }
   getSanitizedImageUrl(file: File) {
     return this.sanitizer.bypassSecurityTrustUrl(

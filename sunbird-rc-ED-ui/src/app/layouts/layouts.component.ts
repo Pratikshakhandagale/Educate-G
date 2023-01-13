@@ -218,6 +218,7 @@ export class LayoutsComponent implements OnInit, OnChanges {
         this.langKey = this.layoutSchema.langKey;
       }
 
+
       if (block.fields.includes && block.fields.includes.length > 0) {
         if (block.fields.includes == '*') {
           for (var element in this.model) {
@@ -376,6 +377,7 @@ export class LayoutsComponent implements OnInit, OnChanges {
           }
         } else {
           block.fields.includes.forEach((element) => {
+
             if (this.model[element] && !Array.isArray(this.model[element])) {
               for (const [key, value] of Object.entries(this.model[element])) {
                 if (
@@ -583,7 +585,12 @@ export class LayoutsComponent implements OnInit, OnChanges {
           : fieldsArrayTemp.concat(fieldsArray);
       }
 
-      block.items.push(this.property);
+      if(block.showOnlyFirst && this.property[0]){
+        block.items.push([this.property[0]]);
+      }else{
+        block.items.push(this.property);
+      }
+      // block.items.push(this.property);
       this.Data.push(block);
       this.schemaloaded = true;
     });
