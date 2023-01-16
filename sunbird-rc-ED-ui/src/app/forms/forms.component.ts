@@ -17,6 +17,7 @@ import { startWith, switchMap } from 'rxjs/operators';
 import { stringify } from '@angular/compiler/src/util';
 import { KeycloakService } from 'keycloak-angular';
 import * as Sentry from '@sentry/angular';
+import { AppConfig } from '../app.config';
 
 declare const $: any;
 
@@ -112,6 +113,7 @@ export class FormsComponent implements OnInit {
   adminRole: boolean;
   errMsg: string;
   subjectsLoaded: boolean = false;
+  baseUrl = this.config.getEnv('baseUrl');
   PrerakId: string;
   constructor(
     private route: ActivatedRoute,
@@ -123,10 +125,12 @@ export class FormsComponent implements OnInit {
     private formlyJsonschema: FormlyJsonschema,
     public generalService: GeneralService,
     private location: Location,
-    public keycloak: KeycloakService
+    public keycloak: KeycloakService,
+    private config: AppConfig
   ) {}
 
   ngOnInit(): void {
+
     this.keycloak.loadUserProfile().then((res) => {
       this.adminRole = this.keycloak.isUserInRole('admin', res['username']);
     });
@@ -386,7 +390,7 @@ export class FormsComponent implements OnInit {
     this.form2 = new FormGroup({});
     this.options = {};
     this.fields = [this.formlyJsonschema.toFieldConfig(this.schema)];
-
+    console.log("this.schema",this.schema)
     if (this.privacyCheck) {
       this.visilibity(this.fields);
     }
@@ -1989,9 +1993,9 @@ export class FormsComponent implements OnInit {
         this.model['RSOS_NIOSRegId'] = '';
       }
 
-      if (this.model['RSOS_NIOSFormPhoto']) {
-        delete this.model['RSOS_NIOSFormPhoto'];
-      }
+      // if (this.model['RSOS_NIOSFormPhoto']) {
+      //   delete this.model['RSOS_NIOSFormPhoto'];
+      // }
 
       if (this.model['RSOS_NIOSRegId']) {
         this.model['RSOS_NIOSRegId'] = this.model['RSOS_NIOSRegId'].toString();
@@ -2026,14 +2030,19 @@ export class FormsComponent implements OnInit {
       //   }
       // }
       // else{
-      if (this.fileFields.length > 0) {
-        this.fileFields.forEach((fileField) => {
-          if (this.model[fileField]) {
-            var formData = new FormData();
-            for (let i = 0; i < this.model[fileField].length; i++) {
-              const file = this.model[fileField][i];
-              formData.append('files', file);
-            }
+
+        if (this.fileFields.length > 0) {
+          this.fileFields.forEach((fileField) => {
+            if (this.model[fileField]) {
+              var formData = new FormData();
+              for (let i = 0; i < this.model[fileField].length; i++) {
+                const file = this.model[fileField][i];
+                formData.append('files', file);
+              }
+
+              if (this.type && this.type.includes('property')) {
+                var property = this.type.split(':')[1];
+              }
 
             if (this.type && this.type.includes('property')) {
               var property = this.type.split(':')[1];
@@ -2052,8 +2061,10 @@ export class FormsComponent implements OnInit {
                   documents_obj.fileName = element;
                   documents_list.push(documents_obj);
                 });
-
-                this.model[fileField] = documents_list;
+                if(res.documentLocations[0]){
+                  this.model[fileField] = this.baseUrl + '/'+res.documentLocations[0]
+                }
+                // this.model[fileField] = documents_list;
                 if (this.type && this.type === 'entity') {
                   if (this.identifier != null) {
                     this.updateData();
