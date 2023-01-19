@@ -105,7 +105,11 @@ export class TablesComponent implements OnInit {
         this.limit = filtered[0].hasOwnProperty(this.limit)
           ? filtered[0].limit
           : this.limit;
-        await this.getData();
+        if(this.tableSchema.body){
+          await this.getData(this.tableSchema.body);
+        }else{
+          await this.getData();
+        }
       });
     });
 
@@ -236,6 +240,10 @@ export class TablesComponent implements OnInit {
   }
 
   getData(request = { filters: {} }) {
+    var filter = JSON.stringify(request);
+    console.log("filter",filter,localStorage.getItem('osid'));
+    filter = filter.replace("{{osid}}",localStorage.getItem('osid'));
+    request = JSON.parse(filter);
     this.isLoading = true;
     let url;
     if (this.entity) {
@@ -244,7 +252,7 @@ export class TablesComponent implements OnInit {
       // console.log('Something went wrong');
       return;
     }
-
+console.log("request",request);
     if (url.toLowerCase().includes('search')) {
       this.generalService.postData(url, request).subscribe((res) => {
         this.model = res;
@@ -1000,6 +1008,8 @@ export class TablesComponent implements OnInit {
                 element.AgRegistrationForm[0].RSOS_NIOSRegId
                   ? element.AgRegistrationForm[0].RSOS_NIOSRegId
                   : '';
+              obj['Registration length'] =
+                  element.AgRegistrationForm.length;
             } else {
               obj[
                 'क्या किशोरी के द्वारा RSOS/NIOS पंजीकरण फॉर्म जमा किया गया है'
@@ -1016,6 +1026,7 @@ export class TablesComponent implements OnInit {
               ] = '';
               obj['किशोरी का RSOS/NIOS रजिस्ट्रेशन आईडी / क्रमांक दर्ज करें'] =
                 '';
+                obj['Registration length'] = 0;
             }
 
             finalarr.push(obj);
@@ -1124,6 +1135,7 @@ export class TablesComponent implements OnInit {
               'RSOS/NIOS रजिस्ट्रेशन फॉर्म के अनुसार जन्मतिथि',
               'क्या RSOS/NIOS रजिस्ट्रेशन आईडी / क्रमांक प्राप्त हो गयी है',
               'किशोरी का RSOS/NIOS रजिस्ट्रेशन आईडी / क्रमांक दर्ज करें',
+              'Registration length'
             ],
           };
           this.csvExporter = new ExportToCsv(options);
@@ -1446,6 +1458,8 @@ export class TablesComponent implements OnInit {
             element.AgRegistrationForm[0].RSOS_NIOSRegId
               ? element.AgRegistrationForm[0].RSOS_NIOSRegId
               : '';
+          obj['Registration length'] =
+            element.AgRegistrationForm.length;
         } else {
           obj['क्या किशोरी के द्वारा RSOS/NIOS पंजीकरण फॉर्म जमा किया गया है'] =
             '';
@@ -1458,6 +1472,7 @@ export class TablesComponent implements OnInit {
           obj['क्या RSOS/NIOS रजिस्ट्रेशन आईडी / क्रमांक प्राप्त हो गयी है'] =
             '';
           obj['किशोरी का RSOS/NIOS रजिस्ट्रेशन आईडी / क्रमांक दर्ज करें'] = '';
+          obj['Registration length'] = 0;
         }
 
         finalarr.push(obj);
@@ -1566,6 +1581,7 @@ export class TablesComponent implements OnInit {
           'RSOS/NIOS रजिस्ट्रेशन फॉर्म के अनुसार जन्मतिथि',
           'क्या RSOS/NIOS रजिस्ट्रेशन आईडी / क्रमांक प्राप्त हो गयी है',
           'किशोरी का RSOS/NIOS रजिस्ट्रेशन आईडी / क्रमांक दर्ज करें',
+          'Registration length'
         ],
       };
       // console.log('finalarr--', finalarr);
