@@ -1365,10 +1365,10 @@ export class FormsComponent implements OnInit {
           'expression'
         ] = (control: FormControl) => {
           if (control.value != null) {
-            if (this.subjectsLoaded) {
-              this.model['subjects'] = [];
-              // this.loadSchema();
-            }
+            // if (this.subjectsLoaded) {
+            //   this.model['subjects'] = [];
+            //   // this.loadSchema();
+            // }
             if (control.value == 'NA') {
               this.model['subjects'] = null;
             }

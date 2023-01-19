@@ -20,6 +20,7 @@ import { ScanQrCodeComponent } from './documents/scan-qr-code/scan-qr-code.compo
 import { BrowseDocumentsComponent } from './documents/browse-documents/browse-documents.component';
 import { PagesComponent } from './pages/pages.component';
 import { DocDetailViewComponent } from './documents/doc-detail-view/doc-detail-view.component';
+import { AgMapComponent } from './ag-map/ag-map.component';
 // import { CreateCertificateComponent } from './create-certificate/create-certificate.component';
 // import { FaqComponent } from './custom-components/faq/faq.component';
 const routes: Routes = [
@@ -157,6 +158,7 @@ children: [
 
 // Custom
 // { path: 'faq', component: FaqComponent },
+{ path: 'ag-map', component: AgMapComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

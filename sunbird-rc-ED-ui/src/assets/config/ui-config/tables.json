@@ -78,7 +78,14 @@
     },
     {
       "ag": {
-        "api": "/AGV8",
+        "api": "/AGV8/search",
+        "body": {
+          "filters": {
+            "prerakId": {
+                "contains": "{{osid}}"
+            }
+          }
+        },
         "title": "My AGs",
         "fields": [
           {

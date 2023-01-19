@@ -46,6 +46,10 @@ export class KeycloakloginComponent implements OnInit {
       } else {
         this.profileUrl = '/profile/' + this.entity;
       }
+      console.log("entity",this.entity);
+      if(this.entity == "Admin"){
+        localStorage.setItem('isAdminEntity',"1");
+      }
       this.router.navigate([this.profileUrl]);
     });
   }

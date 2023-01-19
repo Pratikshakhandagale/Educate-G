@@ -1,0 +1,27 @@
+<div class="container">
+  <h1>{{name}}</h1>
+
+  <form [formGroup]="form" #form1 (ngSubmit)="onSubmit()">
+    <hr style="color:#0089ff">
+    <label class="mr-3" for="ag">AG ID</label>
+    <input class="form-control" id="ag" type="text" formControlName="ag">
+
+    <hr>
+
+    <label class="mr-3" for="prerak">Prerak ID</label>
+    <input class="form-control" id="prerak" type="text" formControlName="prerak">
+    <hr>
+
+    <button class="btn btn-primary submit-button" type="submit">Submit</button>
+    <div *ngIf="errmsg.length > 0">
+      <li *ngFor="let errms of errmsg;" style="color:rgb(255, 34, 18)">
+        {{errms}}
+      </li>
+    </div>
+    <div *ngIf="msg.length > 0">
+      <li *ngFor="let ms of msg;" style="color:rgb(3, 177, 3)">
+        {{ms}}
+      </li>
+    </div>
+  </form>
+</div>
