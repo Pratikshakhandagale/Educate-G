@@ -13,6 +13,11 @@
     <hr>
 
     <button class="btn btn-primary submit-button" type="submit">Submit</button>
+    <div *ngIf="errmsg.length > 0">
+      <li *ngFor="let errms of errmsg;" style="color:rgb(255, 34, 18)">
+        {{errms}}
+      </li>
+    </div>
     <div *ngIf="msg.length > 0">
       <li *ngFor="let ms of msg;" style="color:rgb(3, 177, 3)">
         {{ms}}

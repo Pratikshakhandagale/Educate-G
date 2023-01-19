@@ -15,6 +15,7 @@ export class AgMapComponent implements OnInit {
   form2: FormGroup;
   ags;
   msg = [];
+  errmsg: any;
   constructor(private formBuilder: FormBuilder,public generalService: GeneralService,public router: Router,) { }
 
   ngOnInit() {
@@ -81,7 +82,7 @@ export class AgMapComponent implements OnInit {
               })
             }
            else{
-            this.msg.push("AG - "+ag+" has no data")
+            this.errmsg.push("AG - "+ag+" has no data")
            }
           })
       }
