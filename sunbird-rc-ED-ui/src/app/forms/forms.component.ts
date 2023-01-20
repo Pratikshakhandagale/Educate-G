@@ -1370,7 +1370,7 @@ export class FormsComponent implements OnInit {
             //   // this.loadSchema();
             // }
             if (control.value == 'NA') {
-              this.model['subjects'] = null;
+              this.model['subjects'] = [];
             }
             if (isRSOS_NSOS_First(control.value)) {
               if (this.model['subjects']) {
