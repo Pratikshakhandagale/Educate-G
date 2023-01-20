@@ -1977,17 +1977,7 @@ export class FormsComponent implements OnInit {
       this.errMsg =
         'निम्न में से चुने की किशोरी कौनसी परीक्षा में भाग लेगी should not be NA';
     } else {
-      if (this.model['isRSOS_NIOSFormSubmitted'] == 'नहीं') {
-        this.model = {};
-        this.model['isRSOS_NIOSFormSubmitted'] = 'नहीं';
-        this.model['isRSOS_NIOSRegIdReceived'] = 'नहीं';
-        this.model['RSOS_NIOSRegId'] = '';
-        this.model['subjects'] = ['NA'];
-        this.model['examChoice'] = 'NA';
-        this.model['birthDateOnRSOS_NIOSForm'] = new Date()
-          .toISOString()
-          .split('T')[0];
-      }
+
 
       if (this.model['RSOS_NIOSRegId'] == null) {
         this.model['RSOS_NIOSRegId'] = '';
@@ -2231,6 +2221,17 @@ export class FormsComponent implements OnInit {
         }
       }
       // }
+    }
+    if (this.model['isRSOS_NIOSFormSubmitted'] == 'नहीं') {
+      this.model = {};
+      this.model['isRSOS_NIOSFormSubmitted'] = 'नहीं';
+      this.model['isRSOS_NIOSRegIdReceived'] = 'नहीं';
+      this.model['RSOS_NIOSRegId'] = '';
+      this.model['subjects'] = ['NA'];
+      this.model['examChoice'] = 'NA';
+      this.model['birthDateOnRSOS_NIOSForm'] = new Date()
+        .toISOString()
+        .split('T')[0];
     }
   }
 
