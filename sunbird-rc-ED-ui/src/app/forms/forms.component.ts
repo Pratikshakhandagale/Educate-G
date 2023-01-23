@@ -2051,10 +2051,10 @@ export class FormsComponent implements OnInit {
                   documents_obj.fileName = element;
                   documents_list.push(documents_obj);
                 });
-                if(res.documentLocations[0]){
-                  this.model[fileField] = this.baseUrl + '/'+res.documentLocations[0]
+                if(fileField == "RSOS_NIOSFormPhoto"){
+                  fileField = "RSOS_NIOSFormPhotoV2"
                 }
-                // this.model[fileField] = documents_list;
+                this.model[fileField] = documents_list;
                 if (this.type && this.type === 'entity') {
                   if (this.identifier != null) {
                     this.updateData();
