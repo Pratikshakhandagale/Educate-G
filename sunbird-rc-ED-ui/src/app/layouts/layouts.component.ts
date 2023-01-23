@@ -244,7 +244,6 @@ export class LayoutsComponent implements OnInit, OnChanges {
       if (block.fields.includes && block.fields.includes.length > 0) {
         if (block.fields.includes == '*') {
           for (var element in this.model) {
-            // console.log("element",element)
             if (!Array.isArray(this.model[element])) {
               if (typeof this.model[element] == 'string') {
                 temp_object =
@@ -658,15 +657,6 @@ export class LayoutsComponent implements OnInit, OnChanges {
           }
         });
       }
-      if(this.model['prerakName']){
-        await this.generalService.getData('PrerakV2').subscribe((res) => {
-          this.model['prerakName'] = res[0]['fullName'];
-          this.model['parentOrganization'] = res[0]['parentOrganization'];
-          this.addData();
-        });
-      }else{
-        this.addData();
-      }
 
       this.getHeadingTitle(this.model);
 
@@ -734,7 +724,18 @@ export class LayoutsComponent implements OnInit, OnChanges {
       //   }
       // }
 
+      if(this.model['prerakName']){
+        await this.generalService.getData('PrerakV2').subscribe((res) => {
+          if(res[0]){
+             this.model['prerakName'] = res[0]['fullName'];
+          this.model['parentOrganization'] = res[0]['parentOrganization']?res[0]['parentOrganization']:'';
+          this.addData();
+          }
 
+        });
+      }else{
+        this.addData();
+      }
     });
   }
 
