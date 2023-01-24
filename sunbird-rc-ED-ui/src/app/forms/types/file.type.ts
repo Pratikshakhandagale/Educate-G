@@ -76,16 +76,23 @@ export class FormlyFieldFile extends FieldType {
     let file = e.target.files[0];
     let fileType = file.type; // image/jpeg
     let fileSize = file.size; // 3MB
-
-    if (fileSize > 5 * 1000000) {
+    console.log("fileType",fileType,!fileType.includes('image/'))
+    if (fileSize > 5 * 1000000 || !fileType.includes('image/')) {
       // fileSize > 5MB then show popup message
-      alert(
-        `File size is too large, please upload image of size less than 5MB.\nSelected File Size: ${
-          fileSize / 1000000
-        }MB only`
-      );
+      if(!(fileType.toLowerCase()).includes('image/')) {
+        alert("Only images with file type JPG, JPEG and PNG are supported.");
+
+      }else{
+        alert(
+          `File size is too large, please upload image of size less than 5MB.\nSelected File Size: ${
+            fileSize / 1000000
+          }MB only`
+        );
+
+      }
       return false;
-    }else{
+    }
+    else{
       this.selectedFiles = Array.from(event.target.files);
       const reader = new FileReader();
       this.imagePath = event.target.files;

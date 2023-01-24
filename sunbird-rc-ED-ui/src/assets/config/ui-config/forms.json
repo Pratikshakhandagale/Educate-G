@@ -1591,7 +1591,15 @@
                 "name": "isRSOS_NIOSFormSubmitted",
                 "required": true
               },
-             
+
+              {
+                "name": "RSOS_NIOSFormPhoto",
+                "format": "file",
+                "expressionProperties": {
+                  "hideExpression":"model.isRSOS_NIOSFormSubmitted=='नहीं'"
+                }
+              },
+
               {
                 "name": "examChoice",
                 "expressionProperties": {
