@@ -778,6 +778,63 @@
             },
             "fields": [
               {
+                "name": "prerakName",
+                "data": {
+                  "type": "api",
+                  "url": "/PrerakV2",
+                  "key": "fullName"
+                },
+                "custom": true,
+                "element": {
+                  "widget": {
+                    "formlyConfig": {
+                      "type": "input",
+                      "templateOptions": {
+                        "type": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "name": "prerakId",
+                "custom": true,
+                "data": {
+                  "type": "api",
+                  "url": "/PrerakV2",
+                  "key": "osid"
+                },
+                "element": {
+                  "widget": {
+                    "formlyConfig": {
+                      "type": "input",
+                      "templateOptions": {
+                        "type": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "name": "parentOrganization",
+                "custom": true,
+                "data": {
+                  "type": "api",
+                  "url": "/PrerakV2",
+                  "key": "parentOrganization"
+                },
+                "element": {
+                  "widget": {
+                    "formlyConfig": {
+                      "type": "input",
+                      "templateOptions": {
+                        "type": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              {
                 "name": "AGfullName",
                 "required": true,
                 "validation": {
@@ -1447,7 +1504,7 @@
       "ag-registration": {
         "api": "/AGV8",
         "type": "property:AgRegistrationForm",
-        "redirectTo": "/myags/attestation/ag/AGV8/",
+        "redirectTo": "/myags/attestation/ag/AGV8",
         "title": "Add AG Registration Details",
         "fieldsets": [
           {
@@ -1525,7 +1582,7 @@
       "ag-registration-setup": {
         "api": "/AGV8",
         "type": "property:AgRegistrationForm",
-        "redirectTo": "/myags/attestation/ag/AGV8/",
+        "redirectTo": "/myags/attestation/ag/AGV8",
         "title": "Add AG Registration Details",
         "fieldsets": [
           {

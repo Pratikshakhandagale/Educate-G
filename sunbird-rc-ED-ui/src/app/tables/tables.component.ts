@@ -11,6 +11,7 @@ import dayjs from 'dayjs';
 import { ExportToCsv } from 'export-to-csv';
 import * as _ from 'lodash-es';
 import { KeycloakService } from 'keycloak-angular';
+import { AppConfig } from '../app.config';
 
 @Component({
   selector: 'app-tables',
@@ -30,7 +31,7 @@ export class TablesComponent implements OnInit {
   field;
   public csvExporter: any;
   public tableData = [];
-
+  baseUrl = this.config.getEnv('baseUrl');
   page: number = 1;
   limit: number = 100;
   identifier: any;
@@ -58,7 +59,8 @@ export class TablesComponent implements OnInit {
     private route: ActivatedRoute,
     public generalService: GeneralService,
     public schemaService: SchemaService,
-    public keycloak: KeycloakService
+    public keycloak: KeycloakService,
+    private config: AppConfig
   ) {}
   sortTable(colName) {
     if (this.sort === '' || this.sort === 'asc') {
@@ -622,6 +624,7 @@ console.log("request",request);
   }
 
   async downloadAGCSVFile() {
+    console.log("downloadAGCSVFile")
     this.loader = true;
     this.name = `Ags_${dayjs().format('YYYY-MM-DD_HH_mm')}`;
     let arr = [];

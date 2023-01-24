@@ -1370,7 +1370,7 @@ export class FormsComponent implements OnInit {
             //   // this.loadSchema();
             // }
             if (control.value == 'NA') {
-              this.model['subjects'] = null;
+              this.model['subjects'] = [];
             }
             if (isRSOS_NSOS_First(control.value)) {
               if (this.model['subjects']) {
@@ -1977,17 +1977,7 @@ export class FormsComponent implements OnInit {
       this.errMsg =
         'निम्न में से चुने की किशोरी कौनसी परीक्षा में भाग लेगी should not be NA';
     } else {
-      if (this.model['isRSOS_NIOSFormSubmitted'] == 'नहीं') {
-        this.model = {};
-        this.model['isRSOS_NIOSFormSubmitted'] = 'नहीं';
-        this.model['isRSOS_NIOSRegIdReceived'] = 'नहीं';
-        this.model['RSOS_NIOSRegId'] = '';
-        this.model['subjects'] = ['NA'];
-        this.model['examChoice'] = 'NA';
-        this.model['birthDateOnRSOS_NIOSForm'] = new Date()
-          .toISOString()
-          .split('T')[0];
-      }
+
 
       if (this.model['RSOS_NIOSRegId'] == null) {
         this.model['RSOS_NIOSRegId'] = '';
@@ -2061,10 +2051,13 @@ export class FormsComponent implements OnInit {
                   documents_obj.fileName = element;
                   documents_list.push(documents_obj);
                 });
+                // if(fileField == "RSOS_NIOSFormPhoto"){
+                //   fileField = "RSOS_NIOSFormPhotoV2"
+                // }
+                // this.model[fileField] = documents_list;
                 if(res.documentLocations[0]){
                   this.model[fileField] = this.baseUrl + '/'+res.documentLocations[0]
                 }
-                // this.model[fileField] = documents_list;
                 if (this.type && this.type === 'entity') {
                   if (this.identifier != null) {
                     this.updateData();
@@ -2085,7 +2078,7 @@ export class FormsComponent implements OnInit {
                     url = [this.apiUrl, this.identifier, property];
                   }
                   if (property == 'AgRegistrationForm') {
-                    url = [this.apiUrl, localStorage.getItem('id'), property];
+                    url = [this.apiUrl, localStorage.getItem('ag-id'), property];
                   }
                   this.apiUrl = url.join('/');
                   if (this.model[property]) {
@@ -2125,7 +2118,7 @@ export class FormsComponent implements OnInit {
                 url = [this.apiUrl, this.identifier, property];
               }
               if (property == 'AgRegistrationForm') {
-                url = [this.apiUrl, localStorage.getItem('id'), property];
+                url = [this.apiUrl, localStorage.getItem('ag-id'), property];
                 this.entityId = undefined;
               }
               this.apiUrl = url.join('/');
@@ -2231,6 +2224,17 @@ export class FormsComponent implements OnInit {
         }
       }
       // }
+    }
+    if (this.model['isRSOS_NIOSFormSubmitted'] == 'नहीं') {
+      this.model = {};
+      this.model['isRSOS_NIOSFormSubmitted'] = 'नहीं';
+      this.model['isRSOS_NIOSRegIdReceived'] = 'नहीं';
+      this.model['RSOS_NIOSRegId'] = '';
+      this.model['subjects'] = ['NA'];
+      this.model['examChoice'] = 'NA';
+      this.model['birthDateOnRSOS_NIOSForm'] = new Date()
+        .toISOString()
+        .split('T')[0];
     }
   }
 

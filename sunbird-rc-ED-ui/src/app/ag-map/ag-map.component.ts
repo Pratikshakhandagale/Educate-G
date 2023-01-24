@@ -15,7 +15,7 @@ export class AgMapComponent implements OnInit {
   form2: FormGroup;
   ags;
   msg = [];
-  errmsg: any;
+  errmsg = [];
   constructor(private formBuilder: FormBuilder,public generalService: GeneralService,public router: Router,) { }
 
   ngOnInit() {
@@ -41,6 +41,7 @@ export class AgMapComponent implements OnInit {
 
   onSubmit() {
     this.msg = [];
+    this.errmsg = [];
     console.log(this.form.value);
     this.generalService
     .postData('PrerakV2/search', {
