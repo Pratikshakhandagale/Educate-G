@@ -1516,7 +1516,10 @@
                 "name": "isRSOS_NIOSFormSubmitted",
                 "required": true
               },
-
+              {
+                "name": "RSOS_NIOSFormPhoto",
+                "format": "file"
+              },
               {
                 "name": "examChoice",
                 "expressionProperties": {
@@ -1591,7 +1594,10 @@
                 "name": "isRSOS_NIOSFormSubmitted",
                 "required": true
               },
-
+              {
+                "name": "RSOS_NIOSFormPhoto",
+                "format": "file"
+              },
               {
                 "name": "examChoice",
                 "expressionProperties": {

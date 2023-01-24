@@ -2051,10 +2051,13 @@ export class FormsComponent implements OnInit {
                   documents_obj.fileName = element;
                   documents_list.push(documents_obj);
                 });
-                if(fileField == "RSOS_NIOSFormPhoto"){
-                  fileField = "RSOS_NIOSFormPhotoV2"
+                // if(fileField == "RSOS_NIOSFormPhoto"){
+                //   fileField = "RSOS_NIOSFormPhotoV2"
+                // }
+                // this.model[fileField] = documents_list;
+                if(res.documentLocations[0]){
+                  this.model[fileField] = this.baseUrl + '/'+res.documentLocations[0]
                 }
-                this.model[fileField] = documents_list;
                 if (this.type && this.type === 'entity') {
                   if (this.identifier != null) {
                     this.updateData();
@@ -2075,7 +2078,7 @@ export class FormsComponent implements OnInit {
                     url = [this.apiUrl, this.identifier, property];
                   }
                   if (property == 'AgRegistrationForm') {
-                    url = [this.apiUrl, localStorage.getItem('id'), property];
+                    url = [this.apiUrl, localStorage.getItem('ag-id'), property];
                   }
                   this.apiUrl = url.join('/');
                   if (this.model[property]) {
@@ -2115,7 +2118,7 @@ export class FormsComponent implements OnInit {
                 url = [this.apiUrl, this.identifier, property];
               }
               if (property == 'AgRegistrationForm') {
-                url = [this.apiUrl, localStorage.getItem('id'), property];
+                url = [this.apiUrl, localStorage.getItem('ag-id'), property];
                 this.entityId = undefined;
               }
               this.apiUrl = url.join('/');
