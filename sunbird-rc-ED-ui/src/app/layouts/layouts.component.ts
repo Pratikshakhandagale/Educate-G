@@ -661,7 +661,11 @@ export class LayoutsComponent implements OnInit, OnChanges {
       this.getHeadingTitle(this.model);
 
       this.Data = [];
-      localStorage.setItem('osid', this.identifier);
+      console.log("layout",this.layout)
+      if(this.layout == 'PrerakV2'){
+        localStorage.setItem('osid', this.identifier);
+      }
+
       // if (this.model['whereStudiedLast']) {
       //   var docs = []
       //   if (this.model['whereStudiedLast'] == 'प्राइवेट स्कूल') {
