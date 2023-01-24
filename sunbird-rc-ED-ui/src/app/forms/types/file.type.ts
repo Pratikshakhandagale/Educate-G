@@ -85,7 +85,12 @@ export class FormlyFieldFile extends FieldType {
         }MB only`
       );
       return false;
-    }else{
+    }
+    else if(fileType.toLowerCase() != 'PNG' || fileType.toLowerCase() != 'JPG' || fileType.toLowerCase() != 'JPEG') {
+      alert("Only images with file type JPG, JPEG and PNG are supported.");
+      return false;
+    }
+    else{
       this.selectedFiles = Array.from(event.target.files);
       const reader = new FileReader();
       this.imagePath = event.target.files;
