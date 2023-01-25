@@ -2040,68 +2040,110 @@ export class FormsComponent implements OnInit {
 
             let id = this.entityId ? this.entityId : this.identifier;
             var url = [this.apiUrl, id, property, 'documents'];
-            this.generalService.postData(url.join('/'), formData).subscribe(
-              (res) => {
-                var documents_list: any[] = [];
-                var documents_obj = {
-                  fileName: '',
-                  format: 'file',
-                };
-                res.documentLocations.forEach((element) => {
-                  documents_obj.fileName = element;
-                  documents_list.push(documents_obj);
-                });
-                // if(fileField == "RSOS_NIOSFormPhoto"){
-                //   fileField = "RSOS_NIOSFormPhotoV2"
-                // }
-                // this.model[fileField] = documents_list;
-                if(res.documentLocations[0]){
-                  this.model[fileField] = this.baseUrl + '/'+res.documentLocations[0]
-                }
-                if (this.type && this.type === 'entity') {
-                  if (this.identifier != null) {
-                    this.updateData();
-                  } else {
+            if(!this.model[fileField].includes('http')){
+              this.generalService.postData(url.join('/'), formData).subscribe(
+                (res) => {
+                  var documents_list: any[] = [];
+                  var documents_obj = {
+                    fileName: '',
+                    format: 'file',
+                  };
+                  res.documentLocations.forEach((element) => {
+                    documents_obj.fileName = element;
+                    documents_list.push(documents_obj);
+                  });
+                  // if(fileField == "RSOS_NIOSFormPhoto"){
+                  //   fileField = "RSOS_NIOSFormPhotoV2"
+                  // }
+                  // this.model[fileField] = documents_list;
+                  if(res.documentLocations[0]){
+                    this.model[fileField] = this.baseUrl + '/'+res.documentLocations[0]
+                  }else{
+                    delete this.model[fileField];
+                  }
+                  if (this.type && this.type === 'entity') {
+                    if (this.identifier != null) {
+                      this.updateData();
+                    } else {
+                      this.postData();
+                    }
+                  } else if (this.type && this.type.includes('property')) {
+                    var property = this.type.split(':')[1];
+
+                    if (this.identifier != null && this.entityId != undefined) {
+                      url = [
+                        this.apiUrl,
+                        this.entityId,
+                        property,
+                        this.identifier,
+                      ];
+                    } else {
+                      url = [this.apiUrl, this.identifier, property];
+                    }
+                    if (property == 'AgRegistrationForm') {
+                      url = [this.apiUrl, localStorage.getItem('ag-id'), property];
+                    }
+                    this.apiUrl = url.join('/');
+                    if (this.model[property]) {
+                      this.model = this.model[property];
+                    }
+
                     this.postData();
-                  }
-                } else if (this.type && this.type.includes('property')) {
-                  var property = this.type.split(':')[1];
-                  var url;
-                  if (this.identifier != null && this.entityId != undefined) {
-                    url = [
-                      this.apiUrl,
-                      this.entityId,
-                      property,
-                      this.identifier,
-                    ];
-                  } else {
-                    url = [this.apiUrl, this.identifier, property];
-                  }
-                  if (property == 'AgRegistrationForm') {
-                    url = [this.apiUrl, localStorage.getItem('ag-id'), property];
-                  }
-                  this.apiUrl = url.join('/');
-                  if (this.model[property]) {
-                    this.model = this.model[property];
-                  }
 
-                  this.postData();
-
-                  if (
-                    this.model.hasOwnProperty('attest') &&
-                    this.model['attest']
-                  ) {
-                    this.raiseClaim(property);
+                    if (
+                      this.model.hasOwnProperty('attest') &&
+                      this.model['attest']
+                    ) {
+                      this.raiseClaim(property);
+                    }
                   }
+                },
+                (err) => {
+                  this.toastMsg.error(
+                    'error',
+                    this.translate.instant('SOMETHING_WENT_WRONG')
+                  );
                 }
-              },
-              (err) => {
-                this.toastMsg.error(
-                  'error',
-                  this.translate.instant('SOMETHING_WENT_WRONG')
-                );
+              );
+            }else{
+              if (this.type && this.type === 'entity') {
+                if (this.identifier != null) {
+                  this.updateData();
+                } else {
+                  this.postData();
+                }
+              } else if (this.type && this.type.includes('property')) {
+                var property = this.type.split(':')[1];
+
+                if (this.identifier != null && this.entityId != undefined) {
+                  url = [
+                    this.apiUrl,
+                    this.entityId,
+                    property,
+                    this.identifier,
+                  ];
+                } else {
+                  url = [this.apiUrl, this.identifier, property];
+                }
+                if (property == 'AgRegistrationForm') {
+                  url = [this.apiUrl, localStorage.getItem('ag-id'), property];
+                }
+                this.apiUrl = url.join('/');
+                if (this.model[property]) {
+                  this.model = this.model[property];
+                }
+
+                this.postData();
+
+                if (
+                  this.model.hasOwnProperty('attest') &&
+                  this.model['attest']
+                ) {
+                  this.raiseClaim(property);
+                }
               }
-            );
+            }
+
           } else {
             if (this.type && this.type === 'entity') {
               if (this.identifier != null) {

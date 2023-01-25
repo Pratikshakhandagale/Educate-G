@@ -121,7 +121,13 @@
                     <div *ngIf="objectIndex + 1 != element.length; else greyBlock" data-mdb-toggle="tooltip"
                       title={{element[objectIndex].title}}>
                       <span class="text-grey-color p14">{{element[objectIndex].title}}:
-                      </span> <span class="p14">{{element[objectIndex].value}}</span>
+                      </span>
+                      <div
+                        *ngIf="element[objectIndex].value.includes('jpg') || element[objectIndex].value.includes('jpeg') || element[objectIndex].value.includes('png'); else nonImage">
+                        <img src="{{element[objectIndex].value}}" style="width: 150px !important;">
+                      </div>
+                      <ng-template #nonImage><span class="p14">{{element[objectIndex].value}}</span></ng-template>
+
                     </div>
                     <ng-template #greyBlock>
                       <div class="fs-6" data-mdb-toggle="tooltip" title={{element[objectIndex].title}}><span
