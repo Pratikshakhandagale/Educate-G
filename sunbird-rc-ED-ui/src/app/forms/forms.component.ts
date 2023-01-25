@@ -2021,7 +2021,7 @@ export class FormsComponent implements OnInit {
       // }
       // else{
 
-        if (this.fileFields.length > 0 || !this.model["RSOS_NIOSFormPhoto"].includes('http')) {
+        if (this.fileFields.length > 0) {
           this.fileFields.forEach((fileField) => {
             if (this.model[fileField]) {
               var formData = new FormData();
