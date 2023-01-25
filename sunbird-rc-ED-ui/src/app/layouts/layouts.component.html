@@ -123,7 +123,7 @@
                       <span class="text-grey-color p14">{{element[objectIndex].title}}:
                       </span>
                       <div
-                        *ngIf="element[objectIndex].value.includes('jpg') || element[objectIndex].value.includes('jpeg') || element[objectIndex].value.includes('png'); else nonImage">
+                        *ngIf="element[objectIndex].value.includes('jpg') || element[objectIndex].value.includes('JPG') || element[objectIndex].value.includes('jpeg') || element[objectIndex].value.includes('JPEG') || element[objectIndex].value.includes('png') || element[objectIndex].value.includes('PNG'); else nonImage">
                         <img src="{{element[objectIndex].value}}" style="width: 150px !important;">
                       </div>
                       <ng-template #nonImage><span class="p14">{{element[objectIndex].value}}</span></ng-template>
