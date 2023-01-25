@@ -1518,7 +1518,10 @@
               },
               {
                 "name": "RSOS_NIOSFormPhoto",
-                "format": "file"
+                "format": "file",
+                "expressionProperties": {
+                  "hideExpression":"model.isRSOS_NIOSFormSubmitted=='नहीं'"
+                }
               },
               {
                 "name": "examChoice",

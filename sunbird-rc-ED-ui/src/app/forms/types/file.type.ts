@@ -31,9 +31,10 @@ import { DomSanitizer } from '@angular/platform-browser';
       <div>
     </div>
     </div>
+
     <div *ngFor="let file of selectedFiles; let i = index">
       <img src={{url}} style="width: 100px;">
-<br>
+        <br>
         <span class="badge badge-pill badge-primary"><i class="fa fa-paperclip" aria-hidden="true"></i> {{ file.name }}</span>
         <span (click)="delete()" class="badge badge-pill" style="background-color: red; color:white !important;margin-left: 2px;"><i class="fa fa-trash" aria-hidden="true"></i></span>
       </div>
@@ -51,10 +52,12 @@ export class FormlyFieldFile extends FieldType {
   selectedFiles: File[];
   imagePath: any;
   url: string | ArrayBuffer;
+
   constructor(public sanitizer: DomSanitizer) {
     super();
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
   openFileInput() {
     this.el.nativeElement.click();
   }
@@ -90,6 +93,7 @@ export class FormlyFieldFile extends FieldType {
         );
 
       }
+      this.el.nativeElement.value = "";
       return false;
     }
     else{
@@ -106,6 +110,7 @@ export class FormlyFieldFile extends FieldType {
   delete(){
     this.selectedFiles = [];
     this.lable = '+ Upload File';
+    this.el.nativeElement.value = "";
   }
   getSanitizedImageUrl(file: File) {
     return this.sanitizer.bypassSecurityTrustUrl(
