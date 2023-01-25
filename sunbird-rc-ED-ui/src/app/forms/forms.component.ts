@@ -2021,7 +2021,7 @@ export class FormsComponent implements OnInit {
       // }
       // else{
 
-        if (this.fileFields.length > 0) {
+        if (this.fileFields.length > 0 || !this.model["RSOS_NIOSFormPhoto"].includes('http')) {
           this.fileFields.forEach((fileField) => {
             if (this.model[fileField]) {
               var formData = new FormData();
@@ -2040,7 +2040,8 @@ export class FormsComponent implements OnInit {
 
             let id = this.entityId ? this.entityId : this.identifier;
             var url = [this.apiUrl, id, property, 'documents'];
-            if(!this.model[fileField].includes('http')){
+            console.log(this.model,fileField)
+            // if(this.model[fileField] && !this.model[fileField].includes('http')){
               this.generalService.postData(url.join('/'), formData).subscribe(
                 (res) => {
                   var documents_list: any[] = [];
@@ -2105,44 +2106,44 @@ export class FormsComponent implements OnInit {
                   );
                 }
               );
-            }else{
-              if (this.type && this.type === 'entity') {
-                if (this.identifier != null) {
-                  this.updateData();
-                } else {
-                  this.postData();
-                }
-              } else if (this.type && this.type.includes('property')) {
-                var property = this.type.split(':')[1];
+            // }else{
+            //   if (this.type && this.type === 'entity') {
+            //     if (this.identifier != null) {
+            //       this.updateData();
+            //     } else {
+            //       this.postData();
+            //     }
+            //   } else if (this.type && this.type.includes('property')) {
+            //     var property = this.type.split(':')[1];
 
-                if (this.identifier != null && this.entityId != undefined) {
-                  url = [
-                    this.apiUrl,
-                    this.entityId,
-                    property,
-                    this.identifier,
-                  ];
-                } else {
-                  url = [this.apiUrl, this.identifier, property];
-                }
-                if (property == 'AgRegistrationForm') {
-                  url = [this.apiUrl, localStorage.getItem('ag-id'), property];
-                }
-                this.apiUrl = url.join('/');
-                if (this.model[property]) {
-                  this.model = this.model[property];
-                }
+            //     if (this.identifier != null && this.entityId != undefined) {
+            //       url = [
+            //         this.apiUrl,
+            //         this.entityId,
+            //         property,
+            //         this.identifier,
+            //       ];
+            //     } else {
+            //       url = [this.apiUrl, this.identifier, property];
+            //     }
+            //     if (property == 'AgRegistrationForm') {
+            //       url = [this.apiUrl, localStorage.getItem('ag-id'), property];
+            //     }
+            //     this.apiUrl = url.join('/');
+            //     if (this.model[property]) {
+            //       this.model = this.model[property];
+            //     }
 
-                this.postData();
+            //     this.postData();
 
-                if (
-                  this.model.hasOwnProperty('attest') &&
-                  this.model['attest']
-                ) {
-                  this.raiseClaim(property);
-                }
-              }
-            }
+            //     if (
+            //       this.model.hasOwnProperty('attest') &&
+            //       this.model['attest']
+            //     ) {
+            //       this.raiseClaim(property);
+            //     }
+            //   }
+            // }
 
           } else {
             if (this.type && this.type === 'entity') {
