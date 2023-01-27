@@ -47,7 +47,7 @@ export class AgMapComponent implements OnInit {
     .postData('PrerakV2/search', {
       "filters": {
           "osid": {
-              "contains": this.form.value.prerak
+              "contains": this.form.value.prerak.trim()
           }
       }
   })
@@ -63,7 +63,7 @@ export class AgMapComponent implements OnInit {
           .postData('AGV8/search', {
             "filters": {
                 "osid": {
-                    "contains": ag
+                    "contains": ag.trim()
                 }
             }
         })

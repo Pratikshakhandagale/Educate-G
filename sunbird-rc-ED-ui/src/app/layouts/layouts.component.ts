@@ -662,7 +662,7 @@ export class LayoutsComponent implements OnInit, OnChanges {
 
       this.Data = [];
       console.log("layout",this.layout)
-      if(this.layout == 'PrerakV2'){
+      if(this.layout == 'PrerakV2' || this.layout == 'Prerak'){
         localStorage.setItem('osid', this.identifier);
       }
 
