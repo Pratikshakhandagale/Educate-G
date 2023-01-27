@@ -4,7 +4,6 @@
       "changeOrigin": true,
       "logLevel": "debug",
       "secure": false
-
     },
 
     "/registry/api": {
