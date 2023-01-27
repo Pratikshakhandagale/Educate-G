@@ -59,3 +59,4 @@ jobs:
 
 
 #run: rsync -avz ./sunbird-rc-ED-ui/dist/sunbird-rc-ui/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_DEV_HOST }}:/var/www/dev-eg2.uniteframework.io/public
+
