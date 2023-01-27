@@ -13,7 +13,7 @@
             "definition": "PrerakV2",
             "title": "PERSONAL_DETAILS",
             "add": false,
-            "edit": true,
+            "edit": false,
             "editform": "prerak-setup",
             "fields": {
               "includes": ["*"],
@@ -58,7 +58,7 @@
             "definition": "PrerakV2",
             "title": "PERSONAL_DETAILS",
             "add": false,
-            "edit": true,
+            "edit": false,
             "editform": "prerak-setup",
             "fields": {
               "includes": ["*"],
@@ -80,7 +80,7 @@
           {
             "definition": "AGV8",
             "title": "AG",
-            "add": true,
+            "add": false,
             "edit": false,
             "addform": "AG-add",
             "multiple": true,
@@ -104,7 +104,7 @@
             "definition": "PrerakV2",
             "title": "PERSONAL_DETAILS",
             "add": false,
-            "edit": true,
+            "edit": false,
             "addform": "add-prerak-admin-setup",
             "editform": "prerak-admin-setup",
             "fields": {
@@ -116,7 +116,7 @@
           {
             "definition": "PrerakV2",
             "title": "Interview Details",
-            "add": true,
+            "add": false,
             "addform": "interview",
             "editform": "interview",
             "edit": false,
@@ -141,7 +141,7 @@
             "definition": "AGV8",
             "title": "PERSONAL_DETAILS",
             "add": false,
-            "edit": true,
+            "edit": false,
             "editform": "ag-setup",
             "fields": {
               "includes": ["*"],
@@ -153,11 +153,11 @@
           {
             "definition": "AGV8",
             "title": "Registration Details",
-            "add": true,
+            "add": false,
             "addform": "ag-registration",
             "editform": "ag-registration-setup",
             "edit": false,
-            "claimEdit": true,
+            "claimEdit": false,
             "canRaiseClaim": false,
             "multiple": true,
             "headValue": "examChoice",
