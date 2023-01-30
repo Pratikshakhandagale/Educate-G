@@ -13,7 +13,7 @@
             "definition": "PrerakV2",
             "title": "PERSONAL_DETAILS",
             "add": false,
-            "edit": true,
+            "edit": false,
             "editform": "prerak-setup",
             "fields": {
               "includes": ["*"],
@@ -21,8 +21,6 @@
             },
             "propertyShowFirst": ["fullName", "mobile", "email"]
           }
-
-
         ]
       }
     },
@@ -37,8 +35,8 @@
             "add": true,
             "addform": "Camp-add",
             "editform": "Camp-setup",
-            "edit": true,
-            "claimEdit": true,
+            "edit": false,
+            "claimEdit": false,
             "canRaiseClaim": false,
             "fields": {
               "includes": ["*"]
@@ -58,7 +56,7 @@
             "definition": "PrerakV2",
             "title": "PERSONAL_DETAILS",
             "add": false,
-            "edit": true,
+            "edit": false,
             "editform": "prerak-setup",
             "fields": {
               "includes": ["*"],
@@ -104,7 +102,7 @@
             "definition": "PrerakV2",
             "title": "PERSONAL_DETAILS",
             "add": false,
-            "edit": true,
+            "edit": false,
             "addform": "add-prerak-admin-setup",
             "editform": "prerak-admin-setup",
             "fields": {
@@ -120,7 +118,7 @@
             "addform": "interview",
             "editform": "interview",
             "edit": false,
-            "claimEdit": true,
+            "claimEdit": false,
             "canRaiseClaim": false,
             "multiple": true,
             "headValue": "vfsTeamName",
@@ -141,30 +139,14 @@
             "definition": "AGV8",
             "title": "PERSONAL_DETAILS",
             "add": false,
-            "edit": true,
+            "edit": false,
             "editform": "ag-setup",
             "fields": {
               "includes": ["*"],
-              "excludes": ["AgRegistrationForm","AGDocumentsV3"]
+              "excludes": ["AgRegistrationForm", "AGDocumentsV3"]
             },
             "propertyShowFirst": ["nameDetails.firstName"],
             "externalEntity": true
-          },
-          {
-            "definition": "AGV8",
-            "title": "Registration Details",
-            "add": true,
-            "addform": "ag-registration",
-            "editform": "ag-registration-setup",
-            "edit": false,
-            "claimEdit": true,
-            "canRaiseClaim": false,
-            "multiple": true,
-            "headValue": "examChoice",
-            "fields": {
-              "includes": ["AgRegistrationForm"]
-            },
-            "showOnlyFirst": true
           }
         ]
       }
