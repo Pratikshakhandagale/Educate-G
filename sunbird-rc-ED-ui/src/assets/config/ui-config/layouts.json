@@ -147,6 +147,22 @@
             },
             "propertyShowFirst": ["nameDetails.firstName"],
             "externalEntity": true
+          },
+          {
+            "definition": "AGV8",
+            "title": "Registration Details",
+            "add": false,
+            "addform": "ag-registration",
+            "editform": "ag-registration-setup",
+            "edit": false,
+            "claimEdit": false,
+            "canRaiseClaim": false,
+            "multiple": true,
+            "headValue": "examChoice",
+            "fields": {
+              "includes": ["AgRegistrationForm"]
+            },
+            "showOnlyFirst": true
           }
         ]
       }
