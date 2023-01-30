@@ -114,7 +114,7 @@
           {
             "definition": "PrerakV2",
             "title": "Interview Details",
-            "add": true,
+            "add": false,
             "addform": "interview",
             "editform": "interview",
             "edit": false,
