@@ -21,8 +21,6 @@
             },
             "propertyShowFirst": ["fullName", "mobile", "email"]
           }
-
-
         ]
       }
     },
@@ -116,7 +114,7 @@
           {
             "definition": "PrerakV2",
             "title": "Interview Details",
-            "add": true,
+            "add": false,
             "addform": "interview",
             "editform": "interview",
             "edit": false,
@@ -145,7 +143,7 @@
             "editform": "ag-setup",
             "fields": {
               "includes": ["*"],
-              "excludes": ["AgRegistrationForm","AGDocumentsV3"]
+              "excludes": ["AgRegistrationForm", "AGDocumentsV3"]
             },
             "propertyShowFirst": ["nameDetails.firstName"],
             "externalEntity": true
@@ -153,7 +151,7 @@
           {
             "definition": "AGV8",
             "title": "Registration Details",
-            "add": true,
+            "add": false,
             "addform": "ag-registration",
             "editform": "ag-registration-setup",
             "edit": false,
