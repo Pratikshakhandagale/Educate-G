@@ -21,8 +21,6 @@
             },
             "propertyShowFirst": ["fullName", "mobile", "email"]
           }
-
-
         ]
       }
     },
@@ -37,8 +35,8 @@
             "add": true,
             "addform": "Camp-add",
             "editform": "Camp-setup",
-            "edit": true,
-            "claimEdit": true,
+            "edit": false,
+            "claimEdit": false,
             "canRaiseClaim": false,
             "fields": {
               "includes": ["*"]
@@ -120,7 +118,7 @@
             "addform": "interview",
             "editform": "interview",
             "edit": false,
-            "claimEdit": true,
+            "claimEdit": false,
             "canRaiseClaim": false,
             "multiple": true,
             "headValue": "vfsTeamName",
@@ -145,7 +143,7 @@
             "editform": "ag-setup",
             "fields": {
               "includes": ["*"],
-              "excludes": ["AgRegistrationForm","AGDocumentsV3"]
+              "excludes": ["AgRegistrationForm", "AGDocumentsV3"]
             },
             "propertyShowFirst": ["nameDetails.firstName"],
             "externalEntity": true

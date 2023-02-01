@@ -14,12 +14,7 @@
     },
     {
       "default": {
-        "left": [
-          {
-            "title": "AG List",
-            "redirectTo": "/myags/attestation/ag/AGV8"
-          }
-        ],
+        "left": [],
         "right": [
           {
             "title": "LOGOUT",
@@ -32,12 +27,7 @@
     {
       "PrerakV2": {
         "logoHref": "profile/PrerakV2",
-        "left": [
-          {
-            "title": "AG List",
-            "redirectTo": "/myags/attestation/ag/AGV8"
-          }
-        ],
+        "left": [],
         "right": [
           {
             "title": "LOGOUT",
@@ -50,12 +40,7 @@
     {
       "Prerak": {
         "logoHref": "profile/PrerakV2",
-        "left": [
-          {
-            "title": "AG List",
-            "redirectTo": "/myags/attestation/ag/AGV8"
-          }
-        ],
+        "left": [],
         "right": [
           {
             "title": "LOGOUT",
@@ -112,12 +97,7 @@
     {
       "AG": {
         "logoHref": "profile/PrerakV2",
-        "left": [
-          {
-            "title": "AG List",
-            "redirectTo": "/myags/attestation/ag/AGV8"
-          }
-        ],
+        "left": [],
         "right": [
           {
             "title": "LOGOUT",
@@ -148,12 +128,7 @@
     {
       "myags": {
         "logoHref": "profile/PrerakV2",
-        "left": [
-          {
-            "title": "AG List",
-            "redirectTo": "/myags/attestation/ag/AGV8"
-          }
-        ],
+        "left": [],
         "right": [
           {
             "title": "LOGOUT",
