@@ -288,6 +288,12 @@
                         "propertyPath": "AGfullName"
                     },
                     {
+                      "key": "prerakName",
+                      "type": "text",
+                      "title": "PRERAK_NAME",
+                      "propertyPath": "prerakName"
+                    },
+                    {
                         "key": "dob",
                         "type": "text",
                         "title": "DOB",
@@ -348,8 +354,12 @@
                             "property": "dob"
                         },
                         {
-                            "title": "CATEGORY",
-                            "property": "category"
+                            "title": "PRERAK_NAME",
+                            "property": "prerakName"
+                        },
+                        {
+                          "title": "CATEGORY",
+                          "property": "category"
                         },
                         {
                             "title": "DISTRICT",
