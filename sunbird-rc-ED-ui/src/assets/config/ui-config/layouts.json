@@ -78,7 +78,7 @@
           {
             "definition": "AGV8",
             "title": "AG",
-            "add": true,
+            "add": false,
             "edit": false,
             "addform": "AG-add",
             "multiple": true,

@@ -27,7 +27,10 @@
     {
       "PrerakV2": {
         "logoHref": "profile/PrerakV2",
-        "left": [],
+        "left": [{
+          "title": "AG List",
+          "redirectTo": "/myags/attestation/ag/AGV8"
+        }],
         "right": [
           {
             "title": "LOGOUT",
@@ -40,7 +43,10 @@
     {
       "Prerak": {
         "logoHref": "profile/PrerakV2",
-        "left": [],
+        "left": [{
+          "title": "AG List",
+          "redirectTo": "/myags/attestation/ag/AGV8"
+        }],
         "right": [
           {
             "title": "LOGOUT",
