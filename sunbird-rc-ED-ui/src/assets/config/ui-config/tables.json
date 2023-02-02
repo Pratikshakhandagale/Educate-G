@@ -109,6 +109,11 @@
             "keyPath": "category"
           },
           {
+            "name": "prerakName",
+            "title": "Prerak Name",
+            "keyPath": "prerakName"
+          },
+          {
             "custom": true,
             "type": "button",
             "buttonText": "View",
