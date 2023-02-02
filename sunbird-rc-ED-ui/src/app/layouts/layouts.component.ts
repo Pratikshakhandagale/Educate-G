@@ -65,7 +65,7 @@ export class LayoutsComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.getLocation();
+    // this.getLocation();
     this.subHeadername = [];
     if (this.publicData) {
       this.model = this.publicData;
@@ -187,6 +187,7 @@ export class LayoutsComponent implements OnInit, OnChanges {
             var filtered = LayoutSchemas.layouts.filter((obj) => {
               return Object.keys(obj)[0] === this.layout;
             });
+            console.log("filtered",filtered);
             this.layoutSchema = filtered[0][this.layout];
             if (this.layoutSchema.table) {
               var url = [this.layout, 'attestation', this.layoutSchema.table];
@@ -240,15 +241,15 @@ export class LayoutsComponent implements OnInit, OnChanges {
         this.langKey = this.layoutSchema.langKey;
       }
 
-      if(localStorage.getItem('isAdminEntity') && localStorage.getItem('isAdminEntity') == "1" && this.layout == "ag-detail"){
-        if(block.editform == "ag-setup"){
-          block.edit = true;
-        }
-        if(block.editform == "ag-registration-setup"){
-          block.claimEdit = true;
-          block.add = true;
-        }
-      }
+      // if(localStorage.getItem('isAdminEntity') && localStorage.getItem('isAdminEntity') == "1" && this.layout == "ag-detail"){
+      //   if(block.editform == "ag-setup"){
+      //     block.edit = true;
+      //   }
+      //   if(block.editform == "ag-registration-setup"){
+      //     block.claimEdit = true;
+      //     block.add = true;
+      //   }
+      // }
 
       if (block.fields.includes && block.fields.includes.length > 0) {
         if (block.fields.includes == '*') {
@@ -737,18 +738,19 @@ export class LayoutsComponent implements OnInit, OnChanges {
       //   }
       // }
 
-      if(this.model['prerakName']){
-        await this.generalService.getData('PrerakV2').subscribe((res) => {
-          if(res[0]){
-             this.model['prerakName'] = res[0]['fullName'];
-          this.model['parentOrganization'] = res[0]['parentOrganization']?res[0]['parentOrganization']:'';
-          this.addData();
-          }
+      // if(this.model['prerakName']){
+      //   await this.generalService.getData('PrerakV2').subscribe((res) => {
+      //     if(res[0]){
+      //        this.model['prerakName'] = res[0]['fullName'];
+      //     this.model['parentOrganization'] = res[0]['parentOrganization']?res[0]['parentOrganization']:'';
+      //     this.addData();
+      //     }
 
-        });
-      }else{
-        this.addData();
-      }
+      //   });
+      // }else{
+      //   this.addData();
+      // }
+      this.addData();
     });
   }
 
@@ -852,20 +854,20 @@ export class LayoutsComponent implements OnInit, OnChanges {
       }
     }
   }
-  getLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position: Position) => {
-          if (position) {
-            this.lat = position.coords.latitude;
-            this.lng = position.coords.longitude;
-            this.model['geoLocation'] = this.lat + ',' + this.lng;
-          }
-        },
-        (error: PositionError) => console.log(error)
-      );
-    } else {
-      alert('Geolocation is not supported by this browser.');
-    }
-  }
+  // getLocation() {
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(
+  //       (position: Position) => {
+  //         if (position) {
+  //           this.lat = position.coords.latitude;
+  //           this.lng = position.coords.longitude;
+  //           this.model['geoLocation'] = this.lat + ',' + this.lng;
+  //         }
+  //       },
+  //       (error: PositionError) => console.log(error)
+  //     );
+  //   } else {
+  //     alert('Geolocation is not supported by this browser.');
+  //   }
+  // }
 }
