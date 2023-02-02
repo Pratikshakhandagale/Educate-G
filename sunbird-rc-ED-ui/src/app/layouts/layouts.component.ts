@@ -241,7 +241,6 @@ export class LayoutsComponent implements OnInit, OnChanges {
       }
 
       if(localStorage.getItem('isAdminEntity') && localStorage.getItem('isAdminEntity') == "1" && this.layout == "ag-detail"){
-        console.log("layout",this.layout)
         if(block.editform == "ag-setup"){
           block.edit = true;
         }
