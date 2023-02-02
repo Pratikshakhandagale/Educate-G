@@ -254,11 +254,70 @@ export class TablesComponent implements OnInit {
       // console.log('Something went wrong');
       return;
     }
-console.log("request",request);
+    console.log("request",request);
     if (url.toLowerCase().includes('search')) {
       this.generalService.postData(url, request).subscribe((res) => {
         this.model = res;
-        this.addData();
+        console.log("here",this.table);
+        if(this.table == "ag-attestation"){
+          this.generalService.postData("/PrerakV2/search", request).subscribe((prerakData) => {
+            console.log("prerakData", prerakData.length)
+            var osid_data = {};
+
+            prerakData.map((element) => {
+
+                let osid_tmp = {};
+
+                osid_tmp['prerakName'] = element['fullName']
+                    ? element['fullName']
+                    : '';
+                osid_tmp['parentOrganization'] = element['parentOrganization']
+                    ? element['parentOrganization']
+                    : '';
+                osid_tmp['prerakId'] = element['osid'] ? element['osid'] : '';
+                osid_tmp['AGCount'] = 0;
+
+                // if (element?.osOwner) {
+                //     osid_tmp['osOwner'] = element['osOwner'];
+                // }
+                //osid_data.push(osid_tmp);
+                osid_data[`${element.osid}`] = osid_tmp;
+            })
+            var all_ags = []
+            this.model.map((element) => {
+              let obj = {};
+              let data = {};
+              //let prerak_obj;
+
+              if (osid_data[`${element.prerakId}`]) {
+                  if (element.prerakId === osid_data[`${element.prerakId}`]['prerakId']) {
+                      // console.log('then++');
+
+                      // console.log("element.prerakId", element.prerakId)
+                      // console.log("osid_data[`${element.prerakId}`]", osid_data[`${element.prerakId}`])
+
+
+                      element.prerakName = osid_data[`${element.prerakId}`]['prerakName'];
+                      //console.log("element.prerakName", element.prerakName)
+
+                      element.prerakId = osid_data[`${element.prerakId}`]['prerakId'];
+                      //console.log("element.prerakId", element.prerakId)
+
+                      element.parentOrganization = osid_data[`${element.prerakId}`]['parentOrganization'];
+                      //console.log("element.parentOrganization", element.parentOrganization)
+
+                  }
+              }
+              all_ags.push(element);
+            })
+            console.log("all_ags",all_ags);
+            this.model = all_ags;
+            this.addData();
+          })
+        }else{
+          this.addData();
+        }
+
       });
     } else {
       this.generalService.getData(url).subscribe((res) => {
