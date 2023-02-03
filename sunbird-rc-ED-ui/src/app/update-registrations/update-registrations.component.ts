@@ -123,7 +123,7 @@ export class UpdateRegistrationsComponent implements OnInit {
             this.generalService.putData('AGV8',ag['ag'],res2[0]).subscribe((res3) => {
               console.log("status updated",res3);
             })
-            if(res2[0]["AgRegistrationForm"]){
+            if(res2[0]["AgRegistrationForm"] && ag['number']){
               res2[0]["AgRegistrationForm"][0]["RSOS_NIOSRegId"] = ag['number'];
               this.generalService.putData('AGV8/'+ag['ag']+'/AgRegistrationForm',res2[0]["AgRegistrationForm"][0]["osid"],res2[0]["AgRegistrationForm"][0]).subscribe((res3) => {
                 console.log("number updated",res3);
@@ -132,5 +132,6 @@ export class UpdateRegistrationsComponent implements OnInit {
           }
         })
     }
+    window.location.reload();
   }
 }

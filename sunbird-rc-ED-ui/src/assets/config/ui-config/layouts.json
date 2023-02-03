@@ -139,7 +139,7 @@
             "definition": "AGV8",
             "title": "PERSONAL_DETAILS",
             "add": false,
-            "edit": true,
+            "edit": false,
             "editform": "ag-setup",
             "fields": {
               "includes": ["*"],
