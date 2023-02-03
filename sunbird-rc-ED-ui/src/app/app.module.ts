@@ -128,6 +128,7 @@ import { FilterComponent } from './filter/filter.component';
 // import { CreateCertificateComponent } from './create-certificate/create-certificate.component';
 import { Router } from "@angular/router";
 import { AgMapComponent } from './ag-map/ag-map.component';
+import { UpdateRegistrationsComponent } from './update-registrations/update-registrations.component';
 
 @NgModule({
   declarations: [
@@ -162,6 +163,7 @@ import { AgMapComponent } from './ag-map/ag-map.component';
     AuthImagePipe,
     FilterComponent,
     AgMapComponent,
+    UpdateRegistrationsComponent,
     // GridFormlyCellComponent
   ],
   imports: [
