@@ -260,7 +260,7 @@ export class TablesComponent implements OnInit {
         this.model = res;
         console.log("here",this.table);
         if(this.table == "ag-attestation"){
-          this.generalService.postData("/PrerakV2/search", request).subscribe((prerakData) => {
+          this.generalService.postData("/PrerakV2/search", { filters: {} }).subscribe((prerakData) => {
             console.log("prerakData", prerakData.length)
             var osid_data = {};
 
