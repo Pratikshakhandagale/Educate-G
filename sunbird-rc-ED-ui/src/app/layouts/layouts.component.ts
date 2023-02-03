@@ -241,15 +241,15 @@ export class LayoutsComponent implements OnInit, OnChanges {
         this.langKey = this.layoutSchema.langKey;
       }
 
-      // if(localStorage.getItem('isAdminEntity') && localStorage.getItem('isAdminEntity') == "1" && this.layout == "ag-detail"){
-      //   if(block.editform == "ag-setup"){
-      //     block.edit = true;
-      //   }
-      //   if(block.editform == "ag-registration-setup"){
-      //     block.claimEdit = true;
-      //     block.add = true;
-      //   }
-      // }
+      if(localStorage.getItem('isAdminEntity') && localStorage.getItem('isAdminEntity') == "1" && this.layout == "ag-detail"){
+        if(block.editform == "ag-setup"){
+          block.edit = true;
+        }
+        if(block.editform == "ag-registration-setup"){
+          block.claimEdit = true;
+          block.add = true;
+        }
+      }
 
       if (block.fields.includes && block.fields.includes.length > 0) {
         if (block.fields.includes == '*') {
