@@ -17,6 +17,7 @@ export class UpdateRegistrationsComponent implements OnInit {
   public records: any[] = [];
   @ViewChild('csvReader') csvReader: any;
   jsondatadisplay:any;
+  msg: string;
   constructor(private formBuilder: FormBuilder,public generalService: GeneralService,public router: Router) { }
 
   ngOnInit() {
@@ -105,10 +106,11 @@ export class UpdateRegistrationsComponent implements OnInit {
     this.jsondatadisplay = JSON.stringify(this.records);
   }
 
-  submit(){
+  async submit(){
+    var crnt = 0;
     for (const ag of this.records) {
-      console.log(ag);
-      this.generalService
+      // console.log(ag);
+      await this.generalService
         .postData('AGV8/search', {
           "filters": {
               "osid": {
@@ -116,22 +118,26 @@ export class UpdateRegistrationsComponent implements OnInit {
               }
           }
       })
-        .subscribe((res2) => {
-          console.log("res2",res2);
+        .subscribe(async(res2) => {
+          // console.log("res2",res2);
           if(res2[0]){
             res2[0]["registrationStatus"]= ag['status'];
-            this.generalService.putData('AGV8',ag['ag'],res2[0]).subscribe((res3) => {
-              console.log("status updated",res3);
+            await this.generalService.putData('AGV8',ag['ag'],res2[0]).subscribe((res3) => {
+              console.log("status updated",crnt);
             })
             if(res2[0]["AgRegistrationForm"] && ag['number']){
               res2[0]["AgRegistrationForm"][0]["RSOS_NIOSRegId"] = ag['number'];
-              this.generalService.putData('AGV8/'+ag['ag']+'/AgRegistrationForm',res2[0]["AgRegistrationForm"][0]["osid"],res2[0]["AgRegistrationForm"][0]).subscribe((res3) => {
-                console.log("number updated",res3);
+              await this.generalService.putData('AGV8/'+ag['ag']+'/AgRegistrationForm',res2[0]["AgRegistrationForm"][0]["osid"],res2[0]["AgRegistrationForm"][0]).subscribe((res3) => {
+                console.log("number updated",crnt);
               })
             }
+            if((this.records.length -1) == crnt){
+              this.msg = "Records updated successfully."
+              this.fileReset();
+            }
+            crnt = crnt+1
           }
         })
     }
-    window.location.reload();
   }
 }
