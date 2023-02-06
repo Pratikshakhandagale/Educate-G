@@ -123,9 +123,10 @@ export class UpdateRegistrationsComponent implements OnInit {
           if(res2[0]){
             res2[0]["registrationStatus"]= ag['status'];
             await this.generalService.putData('AGV8',ag['ag'],res2[0]).subscribe((res3) => {
-              console.log("status updated",crnt);
+              console.log("status updated",ag['ag']);
             })
-            if(res2[0]["AgRegistrationForm"] && ag['number']){
+            // console.log("ag['number']",ag['number'])
+            if(res2[0]["AgRegistrationForm"]){
               res2[0]["AgRegistrationForm"][0]["RSOS_NIOSRegId"] = ag['number'];
               await this.generalService.putData('AGV8/'+ag['ag']+'/AgRegistrationForm',res2[0]["AgRegistrationForm"][0]["osid"],res2[0]["AgRegistrationForm"][0]).subscribe((res3) => {
                 console.log("number updated",crnt);
