@@ -21,6 +21,9 @@
   <!-- <a href="javascript:;" *ngIf="records.length > 0" (click)="getJsonData()" class="btn btn-primary">Convert Json </a> -->
 
   <a href="javascript:;" *ngIf="records.length > 0" (click)="fileReset()" class="btn btn-primary">Reset </a>
+  <div *ngIf="msg">
+    <p style="color:green">{{msg}}</p>
+  </div>
 
   <!-- {{jsondatadisplay}} -->
   <table class="table" *ngIf="records.length > 0">
