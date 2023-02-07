@@ -135,10 +135,9 @@ export class FormsComponent implements OnInit {
       this.adminRole = this.keycloak.isUserInRole('admin', res['username']);
     });
 
-    this.getLocation();
     this.route.params.subscribe((params) => {
       this.add = this.router.url.includes('claim:add');
-
+      
       if (params['form'] != undefined) {
         this.form = params['form'].split('/', 1)[0];
         this.identifier = params['form'].split('/', 2)[1];
@@ -205,6 +204,10 @@ export class FormsComponent implements OnInit {
           return Object.keys(obj)[0] === this.form;
         });
         this.formSchema = filtered[0][this.form];
+      
+        if (this.formSchema.hasGeolocation) {
+          this.getLocation();
+        }
 
         if (this.formSchema.api) {
           this.apiUrl = this.formSchema.api;
@@ -876,6 +879,10 @@ export class FormsComponent implements OnInit {
           this.responseData.definitions[fieldset.definition].properties[
             field.name
           ]['widget']['formlyConfig']['templateOptions']['type'] = field.format;
+        }
+
+        if (field.type === 'geolocation') {
+          this.model[field.name] = this.lat + ',' + this.lng;
         }
 
         if (field.description) {
@@ -2945,14 +2952,13 @@ export class FormsComponent implements OnInit {
   getLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position: Position) => {
+        (position: any) => {
           if (position) {
             this.lat = position.coords.latitude;
             this.lng = position.coords.longitude;
-            this.model['geoLocation'] = this.lat + ',' + this.lng;
           }
         },
-        (error: PositionError) => console.log(error)
+        (error: any) => console.log(error ,"error")
       );
     } else {
       alert('Geolocation is not supported by this browser.');

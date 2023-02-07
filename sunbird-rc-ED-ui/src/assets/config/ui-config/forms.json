@@ -1016,6 +1016,7 @@
         "api": "/Campdetail",
         "type": "entity",
         "formclass": "row",
+        "hasGeolocation": true,
         "title": "Add new Camp",
         "fieldsets": [
           {
@@ -1023,8 +1024,8 @@
             "fields": [
               {
                 "name": "geoLocation",
-                "required": true
-
+                "required": true,
+                "type": "geolocation"
               },
               {
                 "name": "campAddress",
