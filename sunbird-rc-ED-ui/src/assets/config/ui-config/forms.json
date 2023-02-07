@@ -1013,18 +1013,72 @@
     },
     {
       "Camp-add": {
-        "api": "/Campdetail",
+        "api": "/CampV2",
         "type": "entity",
         "formclass": "row",
         "title": "Add new Camp",
         "fieldsets": [
           {
-            "definition": "Campdetail",
+            "dependencies": {
+              "locationType": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "locationType": {
+                        "enum": ["एजी होम"]
+                      },
+                      "CampOwnerName": {
+                        "type": "string",
+                        "title": "नाम",
+                        "validation": {
+                          "pattern": "^[a-zA-Z]+ [a-zA-Z]+$",
+                          "message": "Name is not valid."
+                        }
+                      },
+                      "CampOwnerMobileNumber": {
+                        "type": "string",
+                        "title": "फ़ोन नंबर",
+                        "validation": {
+                          "pattern": "[6-9]{1}[0-9]{9}",
+                          "message": "MOBILE NUMBER MUST BE 10 DIGIT"
+                        }
+                      }
+                    },
+                    "required": ["CampOwnerName","CampOwnerMobileNumber"]
+                  },
+                  {
+                    "properties": {
+                      "locationType": {
+                        "enum": ["अन्य समुदाय सदस्य का घर"]
+                      },
+                      "CampOwnerName": {
+                        "type": "string",
+                        "title": "नाम",
+                        "validation": {
+                          "pattern": "^[a-zA-Z]+ [a-zA-Z]+$",
+                          "message": "Name is not valid."
+                        }
+                      },
+                      "CampOwnerMobileNumber": {
+                        "type": "string",
+                        "title": "फ़ोन नंबर",
+                        "validation": {
+                          "pattern": "[6-9]{1}[0-9]{9}",
+                          "message": "MOBILE NUMBER MUST BE 10 DIGIT"
+                        }
+                      }
+                    },
+                    "required": ["CampOwnerName","CampOwnerMobileNumber"]
+                  }
+                ]
+              }
+            },
+            "definition": "CampV2",
             "fields": [
               {
                 "name": "geoLocation",
-                "required": true
-
+                "required": true,
+                "type": "geolocation"
               },
               {
                 "name": "campAddress",
@@ -1035,45 +1089,13 @@
                 "required": true
 
               },
+
+
               {
-                "name": "CampOwnerDetails",
-                "children": {
-                  "definition": "CampOwnerDetails",
-                  "title": "कृपया उस व्यक्ति का संपर्क विवरण प्रदान करें जिसके घर का उपयोग किया जा रहा है",
-                  "fields": [
-                    {
-                      "name": "campName",
-                      "required": true,
-                      "validation": {
-                        "pattern": "^[a-zA-Z]+ [a-zA-Z]+$",
-                        "message": "Name is not valid."
-                      },
-                      "expressionProperties": {
-                        "hideExpression":"model.locationType!='एजी होम'||model.locationType!='एजी होम'"
-                      }
-                    },
-                    {
-                      "name": "mobileNumber",
-                      "required": true,
-                      "validation": {
-                        "pattern": "[6-9]{1}[0-9]{9}",
-                        "message": "MOBILE NUMBER MUST BE 10 DIGIT"
-                      },
-                      "expressionProperties": {
-                        "hideExpression":"model.locationType!='एजी होम'||model.locationType!='एजी होम'"
-                      }
-                    },
-                    {
-                      "name": "natureOfLocation",
-                      "required": true,
-                      "expressionProperties": {
-                        "hideExpression":"model.locationType!='अन्य'"
-                      }
-                    }
-                  ]
-                },
+                "name": "natureOfLocation",
+                "required": true,
                 "expressionProperties": {
-                  "hideExpression":"model.locationType!='एजी होम'||model.locationType!='एजी होम'||model.locationType!='अन्य'"
+                  "hideExpression":"model.locationType!='अन्य'"
                 }
               },
               {
@@ -1137,38 +1159,73 @@
             ]
           }
         ],
-        "redirectTo": "/profile/Campdetail"
+        "redirectTo": "/profile/CampV2"
       }
     },
     {
       "Camp-setup": {
-        "api": "/Campdetail",
+        "api": "/CampV2",
         "type": "entity",
         "formclass": "row",
         "title": "Add new Camp",
         "fieldsets": [
           {
-            "definition": "Campdetail",
-            "fields": [
-              {
-                "name": "prerakOsid",
-                "custom": true,
-                "data": {
-                  "type": "api",
-                  "url": "/PrerakV2",
-                  "key": "osid"
-                },
-                "element": {
-                  "widget": {
-                    "formlyConfig": {
-                      "type": "input",
-                      "templateOptions": {
-                        "type": "hidden"
+            "dependencies": {
+              "locationType": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "locationType": {
+                        "enum": ["एजी होम"]
+                      },
+                      "CampOwnerName": {
+                        "type": "string",
+                        "title": "नाम",
+                        "validation": {
+                          "pattern": "^[a-zA-Z]+ [a-zA-Z]+$",
+                          "message": "Name is not valid."
+                        }
+                      },
+                      "CampOwnerMobileNumber": {
+                        "type": "string",
+                        "title": "फ़ोन नंबर",
+                        "validation": {
+                          "pattern": "[6-9]{1}[0-9]{9}",
+                          "message": "MOBILE NUMBER MUST BE 10 DIGIT"
+                        }
                       }
-                    }
+                    },
+                    "required": ["CampOwnerName","CampOwnerMobileNumber"]
+                  },
+                  {
+                    "properties": {
+                      "locationType": {
+                        "enum": ["अन्य समुदाय सदस्य का घर"]
+                      },
+                      "CampOwnerName": {
+                        "type": "string",
+                        "title": "नाम",
+                        "validation": {
+                          "pattern": "^[a-zA-Z]+ [a-zA-Z]+$",
+                          "message": "Name is not valid."
+                        }
+                      },
+                      "CampOwnerMobileNumber": {
+                        "type": "string",
+                        "title": "फ़ोन नंबर",
+                        "validation": {
+                          "pattern": "[6-9]{1}[0-9]{9}",
+                          "message": "MOBILE NUMBER MUST BE 10 DIGIT"
+                        }
+                      }
+                    },
+                    "required": ["CampOwnerName","CampOwnerMobileNumber"]
                   }
-                }
-              },
+                ]
+              }
+            },
+            "definition": "CampV2",
+            "fields": [
               {
                 "name": "geoLocation",
                 "required": true
@@ -1183,49 +1240,20 @@
                 "required": true
 
               },
-              {
-                "name": "contactOfPersonWhoseHomeUsed",
-                "required": true
 
-              },
+
               {
-                "name": "CampOwnerDetails",
-                "children": {
-                  "definition": "CampOwnerDetails",
-                  "title": "कृपया उस व्यक्ति का संपर्क विवरण प्रदान करें जिसके घर का उपयोग किया जा रहा है",
-                  "fields": [
-                    {
-                      "name": "campName",
-                      "required": true,
-                      "validation": {
-                        "pattern": "^[a-zA-Z]+ [a-zA-Z]+$",
-                        "message": "Name is not valid."
-                      }
-                    },
-                    {
-                      "name": "mobileNumber",
-                      "required": true,
-                      "validation": {
-                        "pattern": "[6-9]{1}[0-9]{9}",
-                        "message": "MOBILE NUMBER MUST BE 10 DIGIT"
-                      }
-                    },
-                    {
-                      "name": "natureOfLocation",
-                      "required": true
-                    }
-                  ]
+                "name": "natureOfLocation",
+                "required": true,
+                "expressionProperties": {
+                  "hideExpression":"model.locationType!='अन्य'"
                 }
               },
               {
                 "name": "amenities",
-                "required": true
-
-              },
-              {
-                "name": "keyCommunityStakeHolder",
-                "required": true
-
+                "required": true,
+                "type": "multiselect",
+                "title": "निम्न में से किशोरी द्वारा चुने गए विषय चुने"
               },
               {
                 "name": "typeOfFirstStakeHolder",
@@ -1282,7 +1310,7 @@
             ]
           }
         ],
-        "redirectTo": "/profile/Campdetail"
+        "redirectTo": "/profile/CampV2"
       }
     },
     {

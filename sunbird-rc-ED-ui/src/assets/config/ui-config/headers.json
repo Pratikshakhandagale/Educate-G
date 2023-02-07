@@ -27,7 +27,46 @@
     {
       "PrerakV2": {
         "logoHref": "profile/PrerakV2",
-        "left": [],
+        "left": [
+          {
+            "title": "Profile",
+            "redirectTo": "/profile/PrerakV2"
+          },
+          {
+          "title": "AG List",
+          "redirectTo": "/myags/attestation/ag/AGV8"
+        },
+        {
+          "title": "My Camp",
+          "redirectTo": "/profile/CampV2"
+        }
+      ],
+        "right": [
+          {
+            "title": "LOGOUT",
+            "redirectTo": "/logout",
+            "className": "font-weight-bold"
+          }
+        ]
+      }
+    },
+    {
+      "CampV2": {
+        "logoHref": "profile/PrerakV2",
+        "left": [
+          {
+            "title": "Profile",
+            "redirectTo": "/profile/PrerakV2"
+          },
+          {
+          "title": "AG List",
+          "redirectTo": "/myags/attestation/ag/AGV8"
+        },
+        {
+          "title": "My Camp",
+          "redirectTo": "/profile/CampV2"
+        }
+      ],
         "right": [
           {
             "title": "LOGOUT",
@@ -40,7 +79,10 @@
     {
       "Prerak": {
         "logoHref": "profile/PrerakV2",
-        "left": [],
+        "left": [{
+          "title": "AG List",
+          "redirectTo": "/myags/attestation/ag/AGV8"
+        }],
         "right": [
           {
             "title": "LOGOUT",
@@ -128,7 +170,19 @@
     {
       "myags": {
         "logoHref": "profile/PrerakV2",
-        "left": [],
+        "left": [
+          {
+            "title": "Profile",
+            "redirectTo": "/profile/PrerakV2"
+          },
+          {
+          "title": "AG List",
+          "redirectTo": "/myags/attestation/ag/AGV8"
+        },
+        {
+          "title": "My Camp",
+          "redirectTo": "/profile/CampV2"
+        }],
         "right": [
           {
             "title": "LOGOUT",
