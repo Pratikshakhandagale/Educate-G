@@ -88,8 +88,6 @@ export class AgMapComponent implements OnInit {
           })
       }
 
-
-
     })
   }
 
