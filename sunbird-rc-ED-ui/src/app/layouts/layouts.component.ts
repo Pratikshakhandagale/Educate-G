@@ -241,8 +241,8 @@ export class LayoutsComponent implements OnInit, OnChanges {
         this.langKey = this.layoutSchema.langKey;
       }
 
-      if(localStorage.getItem('isAdminEntity') && localStorage.getItem('isAdminEntity') == "1" && this.layout == "ag-detail"){
-        if(block.editform == "ag-setup"){
+      if(localStorage.getItem('isAdminEntity') && localStorage.getItem('isAdminEntity') == "1" && (this.layout == "ag-detail" || this.layout == "admin-prerak")){
+        if(block.editform == "ag-setup" || this.layout == "admin-prerak"){
           block.edit = true;
         }
         if(block.editform == "ag-registration-setup"){
