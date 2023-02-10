@@ -1030,6 +1030,7 @@
                       "CampOwnerName": {
                         "type": "string",
                         "title": "नाम",
+                        "pattern": "^[a-zA-Z]+ [a-zA-Z]+$",
                         "validation": {
                           "pattern": "^[a-zA-Z]+ [a-zA-Z]+$",
                           "message": "Name is not valid."
@@ -1038,6 +1039,7 @@
                       "CampOwnerMobileNumber": {
                         "type": "string",
                         "title": "फ़ोन नंबर",
+                        "pattern": "[6-9]{1}[0-9]{9}",
                         "validation": {
                           "pattern": "[6-9]{1}[0-9]{9}",
                           "message": "MOBILE NUMBER MUST BE 10 DIGIT"
@@ -1054,6 +1056,7 @@
                       "CampOwnerName": {
                         "type": "string",
                         "title": "नाम",
+                        "pattern": "^[a-zA-Z]+ [a-zA-Z]+$",
                         "validation": {
                           "pattern": "^[a-zA-Z]+ [a-zA-Z]+$",
                           "message": "Name is not valid."
@@ -1062,6 +1065,7 @@
                       "CampOwnerMobileNumber": {
                         "type": "string",
                         "title": "फ़ोन नंबर",
+                        "pattern": "[6-9]{1}[0-9]{9}",
                         "validation": {
                           "pattern": "[6-9]{1}[0-9]{9}",
                           "message": "MOBILE NUMBER MUST BE 10 DIGIT"
@@ -1078,7 +1082,8 @@
               {
                 "name": "geoLocation",
                 "required": true,
-                "type": "geolocation"
+                "type": "geolocation",
+                "disabled": true
               },
               {
                 "name": "campAddress",
@@ -1089,8 +1094,6 @@
                 "required": true
 
               },
-
-
               {
                 "name": "natureOfLocation",
                 "required": true,
@@ -1107,7 +1110,6 @@
               {
                 "name": "typeOfFirstStakeHolder",
                 "required": true
-
               },
               {
                 "name": "nameOfFirstStakeHolder",
@@ -1116,7 +1118,6 @@
                   "pattern": "^[a-zA-Z]+ [a-zA-Z]+$",
                   "message": "Name is not valid."
                 }
-
               },
               {
                 "name": "mobileOfFirstStakeHolder",
@@ -1125,7 +1126,6 @@
                   "pattern": "[6-9]{1}[0-9]{9}",
                   "message": "MOBILE NUMBER MUST BE 10 DIGIT"
                 }
-
               },
               {
                 "name": "typeOfSecondStakeHolder",
@@ -1148,13 +1148,11 @@
                   "pattern": "[6-9]{1}[0-9]{9}",
                   "message": "MOBILE NUMBER MUST BE 10 DIGIT"
                 }
-
               },
               {
                 "name": "startDateOfCamp",
                 "required": true,
                 "type": "date"
-
               }
             ]
           }
@@ -1228,8 +1226,8 @@
             "fields": [
               {
                 "name": "geoLocation",
-                "required": true
-
+                "required": true,
+                "disabled": true
               },
               {
                 "name": "campAddress",

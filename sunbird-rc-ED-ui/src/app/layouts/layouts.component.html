@@ -263,6 +263,22 @@
           </div>
         </div>
       </ng-template>
+
+
+      <!-- Camp -->
+      <ng-template [ngIf]="camp">
+        <p>Camp Detail</p>
+        <div class="card mb-3">
+          <div class="card-body">
+            <div *ngFor="let item of camp | keyvalue">
+              <ng-template [ngIf]="getTitle(item.key)">
+                <div class="fs-7 text-grey">{{getTitle(item.key)}}</div> {{item.value}}
+              </ng-template>
+
+            </div>
+          </div>
+        </div>
+      </ng-template>
     </div>
 
     <!-- Preview Profile Modal -->
