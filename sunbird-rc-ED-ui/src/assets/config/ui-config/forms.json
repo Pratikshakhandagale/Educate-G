@@ -1094,6 +1094,7 @@
                 "required": true
 
               },
+
               {
                 "name": "natureOfLocation",
                 "required": true,
@@ -1105,7 +1106,7 @@
                 "name": "amenities",
                 "required": true,
                 "type": "multiselect",
-                "title": "निम्न में से किशोरी द्वारा चुने गए विषय चुने"
+                "title": "यह किस प्रकार का स्थान है?"
               },
               {
                 "name": "typeOfFirstStakeHolder",
@@ -1128,13 +1129,11 @@
                 }
               },
               {
-                "name": "typeOfSecondStakeHolder",
-                "required": true
+                "name": "typeOfSecondStakeHolder"
 
               },
               {
                 "name": "nameOfSecondStakeHolder",
-                "required": true,
                 "validation": {
                   "pattern": "^[a-zA-Z]+ [a-zA-Z]+$",
                   "message": "Name is not valid."
@@ -1143,7 +1142,6 @@
               },
               {
                 "name": "mobileOfSecondStakeHolder",
-                "required": true,
                 "validation": {
                   "pattern": "[6-9]{1}[0-9]{9}",
                   "message": "MOBILE NUMBER MUST BE 10 DIGIT"
@@ -1234,12 +1232,15 @@
                 "required": true
               },
               {
+                "name": "locationImage",
+                "required": true,
+                 "format": "file"
+              },
+              {
                 "name": "locationType",
                 "required": true
 
               },
-
-
               {
                 "name": "natureOfLocation",
                 "required": true,
@@ -1251,7 +1252,7 @@
                 "name": "amenities",
                 "required": true,
                 "type": "multiselect",
-                "title": "निम्न में से किशोरी द्वारा चुने गए विषय चुने"
+                "title": "यह किस प्रकार का स्थान है?"
               },
               {
                 "name": "typeOfFirstStakeHolder",
