@@ -9,6 +9,7 @@
         "langKey": "prerakAdmin",
         "headerName": "fullName",
         "blocks": [
+
           {
             "definition": "PrerakV2",
             "title": "PERSONAL_DETAILS",
@@ -25,19 +26,17 @@
       }
     },
     {
-      "Campdetail": {
-        "api": "/Campdetail",
+      "CampV2": {
+        "api": "/CampV2",
         "title": "Camp",
         "blocks": [
           {
-            "definition": "Campdetail",
+            "definition": "CampV2",
             "title": "Camp",
-            "add": true,
+            "add": false,
             "addform": "Camp-add",
-            "editform": "Camp-setup",
-            "edit": false,
-            "claimEdit": false,
-            "canRaiseClaim": false,
+            "editform": "Camp-add",
+            "edit": true,
             "fields": {
               "includes": ["*"]
             }
@@ -154,8 +153,8 @@
             "add": false,
             "addform": "ag-registration",
             "editform": "ag-registration-setup",
-            "edit": false,
-            "claimEdit": false,
+            "edit": true,
+            "claimEdit": true,
             "canRaiseClaim": false,
             "multiple": true,
             "headValue": "examChoice",

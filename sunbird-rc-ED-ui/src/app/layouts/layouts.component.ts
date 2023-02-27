@@ -12,7 +12,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { Title } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
-import { Location } from '@angular/common';
+import { Location, KeyValue } from '@angular/common';
 import { convertSchemaToDraft6 } from 'angular6-json-schema-form';
 
 @Component({
@@ -21,6 +21,9 @@ import { convertSchemaToDraft6 } from 'angular6-json-schema-form';
   styleUrls: ['./layouts.component.scss'],
 })
 export class LayoutsComponent implements OnInit, OnChanges {
+  private onCompare(_left: KeyValue<any, any>, _right: KeyValue<any, any>): number {
+    return -1;
+  }
   @Input() layout;
   @Input() publicData;
 
@@ -47,6 +50,7 @@ export class LayoutsComponent implements OnInit, OnChanges {
   titleVal;
   lat: any;
   lng: any;
+  camp: any;
   // systemUpdate: boolean = false;
   constructor(
     public location: Location,
@@ -667,6 +671,13 @@ export class LayoutsComponent implements OnInit, OnChanges {
           }
         });
       }
+      if (this.layout != undefined && this.layout == 'admin-prerak' && res && res['campId']) {
+        let filter = {"filters":{"osid":{"contains":res['campId']}}}
+        await this.generalService.postData("/CampV2/search",filter).subscribe(async (res2) => {
+          console.log(res2);
+          this.camp = res2[0]
+        })
+      }
 
       this.getHeadingTitle(this.model);
 
@@ -751,6 +762,16 @@ export class LayoutsComponent implements OnInit, OnChanges {
       //   this.addData();
       // }
       this.addData();
+    },
+    error => {
+
+      if(this.layout == "CampV2"){
+        this.router.navigate(['/form/Camp-add']);
+      }
+    },
+    () => {
+      // 'onCompleted' callback.
+      // No errors, route to new page here
     });
   }
 
@@ -779,6 +800,7 @@ export class LayoutsComponent implements OnInit, OnChanges {
       return commonFields.indexOf(x[i]) < 0;
     });
   }
+
 
   ngOnDestroy() {
     this.destroy.next();
@@ -853,6 +875,28 @@ export class LayoutsComponent implements OnInit, OnChanges {
         fieldValue.length ? this.subHeadername.push(fieldValue) : [];
       }
     }
+  }
+
+  getTitle(text){
+    var commonFields = [
+      'osCreatedAt',
+      'osCreatedBy',
+      'osUpdatedAt',
+      'osUpdatedBy',
+      'osid',
+      'OsUpdatedBy',
+      'RSOS_NIOSRegId',
+      'osOwner',
+      'sorder'
+    ];
+    if(!commonFields.includes(text)){
+      const result = text.replace(/([A-Z])/g, " $1");
+      const finalResult = result.charAt(0).toUpperCase() + result.slice(1);
+      return finalResult;
+    }else{
+      return false;
+    }
+
   }
   // getLocation() {
   //   if (navigator.geolocation) {

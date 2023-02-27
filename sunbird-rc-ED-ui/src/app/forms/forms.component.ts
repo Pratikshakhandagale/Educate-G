@@ -232,6 +232,7 @@ export class FormsComponent implements OnInit {
           } else {
             this.redirectTo = this.formSchema.redirectTo;
           }
+          console.log("redirectTo",this.redirectTo)
         }
 
         if (this.formSchema.type) {
@@ -2524,7 +2525,7 @@ export class FormsComponent implements OnInit {
   }
 
   async postData() {
-    console.log('1111111', this.form, this.model['prerakId']);
+    console.log('1111111', this.form, this.model);
     if (this.form == 'AG-add') {
       this.model['prerakId'] = this.PrerakId;
     }
@@ -2534,6 +2535,7 @@ export class FormsComponent implements OnInit {
     this.model['sorder'] = this.exLength;
 
     if (this.model.hasOwnProperty('address')) {
+      console.log("-----------0")
       if (
         this.model['address'].hasOwnProperty('district') &&
         this.model['address'].block == null
@@ -2557,6 +2559,7 @@ export class FormsComponent implements OnInit {
     }
 
     if (this.model.hasOwnProperty('confirmAddress')) {
+      console.log("-----------1")
       if (
         this.model['confirmAddress'].hasOwnProperty('district') &&
         this.model['confirmAddress'].district == null
@@ -2580,6 +2583,7 @@ export class FormsComponent implements OnInit {
     }
 
     if (this.adminForm == 'add-prerak-admin-setup' || this.isSignupForm) {
+      console.log("-----------2")
       await this.generalService
         .postData('PrerakV2/search', {
           filters: {
@@ -2665,66 +2669,94 @@ export class FormsComponent implements OnInit {
           this.isSubmitForm = false;
         });
     } else {
+      console.log("-----------3")
       await this.generalService.postData(this.apiUrl, this.model).subscribe(
-        (res) => {
+        async (res) => {
           if (res.params.status == 'SUCCESSFUL' && !this.model['attest']) {
-            if (localStorage.getItem('isAdminAdd')) {
-              localStorage.setItem('isAdminAdd', '');
-              // $('.modal-backdrop').remove()
-              if (
-                this.form == 'ag-registration' ||
-                this.form == 'ag-registration-setup'
-              ) {
-                window.history.go(-1);
-                // window.location.reload();
+            console.log("-----------3.1")
+            if(this.form == 'Camp-add'){
+                var camp_id = res['result']['CampV2']['osid']
+
+                await this.generalService.getData('/PrerakV2').subscribe(
+                   (prerak_res) => {
+                    prerak_res[0]['campId'] = camp_id;
+                    this.generalService.putData('PrerakV2',prerak_res[0]['osid'],prerak_res[0]).subscribe(async(res3) => {
+                      console.log("prerak updated",res3);
+                      await this.generalService.getData('/AGV8').subscribe(
+                        (ag_res) => {
+                          for (const ag of ag_res) {
+                            ag['campId'] = camp_id;
+                            console.log(ag);
+                            this.generalService.putData('AGV8',ag['osid'],ag).subscribe((res3) => {
+                              console.log("ag updated",res3);
+                            })
+                          }
+                          this.router.navigate([this.redirectTo]);
+                        });
+                    })
+                  });
+            }else{
+              if (localStorage.getItem('isAdminAdd')) {
+                localStorage.setItem('isAdminAdd', '');
+                // $('.modal-backdrop').remove()
+                if (
+                  this.form == 'ag-registration' ||
+                  this.form == 'ag-registration-setup'
+                ) {
+                  window.history.go(-1);
+                  // window.location.reload();
+                } else {
+                  this.router.navigate([this.redirectTo]);
+                }
+                // this.router.navigate(['/myags/attestation/ag/AGV8/']);
+                $('.modal-backdrop').remove(); // removes the grey overlay.
+                // window.history.go(-1)
+                // // window.location.reload();
               } else {
-                this.router.navigate([this.redirectTo]);
+                console.log("11")
+                $('.modal-backdrop').remove();
+                if (
+                  this.form == 'ag-registration' ||
+                  this.form == 'ag-registration-setup'
+                ) {
+                  window.history.go(-1);
+                  // window.location.reload();
+                } else {
+                  this.router.navigate([this.redirectTo]);
+                }
+                // this.router.navigate(['/myags/attestation/ag/AGV8/']);
+                // window.history.go(-1)
+                // // window.location.reload();
               }
-              // this.router.navigate(['/myags/attestation/ag/AGV8/']);
-              $('.modal-backdrop').remove(); // removes the grey overlay.
-              // window.history.go(-1)
-              // // window.location.reload();
-            } else {
-              $('.modal-backdrop').remove();
-              if (
-                this.form == 'ag-registration' ||
-                this.form == 'ag-registration-setup'
-              ) {
-                window.history.go(-1);
-                // window.location.reload();
+              if (localStorage.getItem('isAGAdd')) {
+                localStorage.setItem('isAGAdd', '');
+
+                // uncomment before push
+                this.router.navigate(['/myags/attestation/ag/AGV8']);
+                $('.modal-backdrop').remove(); // removes the grey overlay.
+
+                // window.history.go(-1)
+                // // window.location.reload();
               } else {
-                this.router.navigate([this.redirectTo]);
+                console.log("12")
+                $('.modal-backdrop').remove();
+
+                // this.router.navigate(['/myags/attestation/ag/AGV8/']);
+                if (
+                  this.form == 'ag-registration' ||
+                  this.form == 'ag-registration-setup'
+                ) {
+                  window.history.go(-1);
+
+                  // window.location.reload();
+                } else {
+                  this.router.navigate([this.redirectTo]);
+                }
+                // window.history.go(-1)
+                // // window.location.reload();
               }
-              // this.router.navigate(['/myags/attestation/ag/AGV8/']);
-              // window.history.go(-1)
-              // // window.location.reload();
             }
-            if (localStorage.getItem('isAGAdd')) {
-              localStorage.setItem('isAGAdd', '');
 
-              // uncomment before push
-              this.router.navigate(['/myags/attestation/ag/AGV8']);
-              $('.modal-backdrop').remove(); // removes the grey overlay.
-
-              // window.history.go(-1)
-              // // window.location.reload();
-            } else {
-              $('.modal-backdrop').remove();
-
-              // this.router.navigate(['/myags/attestation/ag/AGV8/']);
-              if (
-                this.form == 'ag-registration' ||
-                this.form == 'ag-registration-setup'
-              ) {
-                window.history.go(-1);
-
-                // window.location.reload();
-              } else {
-                this.router.navigate([this.redirectTo]);
-              }
-              // window.history.go(-1)
-              // // window.location.reload();
-            }
           } else if (
             res.params.errmsg != '' &&
             res.params.status == 'UNSUCCESSFUL'
@@ -2952,7 +2984,7 @@ export class FormsComponent implements OnInit {
             this.model['geoLocation'] = this.lat + ',' + this.lng;
           }
         },
-        (error: PositionError) => console.log(error)
+        (error: PositionError) => {alert("You need to allow location to create a Camp");this.router.navigate(['/login']);}
       );
     } else {
       alert('Geolocation is not supported by this browser.');
